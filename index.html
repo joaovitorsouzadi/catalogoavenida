@@ -16,14 +16,14 @@
         extend: {
           colors: {
             brand: {
-              orange: '#F27424',
-              'orange-dark': '#d75d11',
+              orange: '#a64a17',
+              'orange-dark': '#82380f',
               'orange-light': '#FFF5EE',
-              blue: '#3252A2',
-              'blue-dark': '#233c7a',
+              blue: '#3b58a5',
+              'blue-dark': '#293f80',
               'blue-light': '#F1F4FA',
               stone: '#FAF8F5',
-              border: '#E8E4DE'
+              border: '#dce2ef'
             }
           },
           fontFamily: {
@@ -47,137 +47,234 @@
     .zoom-canvas {
       transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
+
+    #productConfigModal [hidden] { display: none !important; }
+    .art-option[aria-pressed="true"] { border-color: #3252A2; outline: 2px solid #3252A2; outline-offset: -1px; }
+    #lightboxModal { z-index: 100; }
+    #lbViewport { overscroll-behavior: contain; }
+    #lbMainImg { max-width: none; max-height: none; flex-shrink: 0; }
+:root {
+  color-scheme: light;
+  --paper: #f8f5ef;
+  --ink: #182849;
+  --blue: #3b58a5;
+  --orange: #f47e35;
+  --muted: #526079;
+  --line: #dce2ef;
+  --white: #fff;
+  --photo-mat: #e4eafa;
+  --photo-edge: #aebbd7;
+  --photo-shadow: 0 3px 9px #1b306629;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+body.site { background: var(--paper); color: var(--ink); font-family: var(--sans); margin: 0; }
+.site [hidden], .site .hidden { display: none !important; }
+.site :focus-visible { outline: 2px solid #3b58a5; outline-offset: 3px; }
+.site-wrap { width: min(100% - 48px, 1220px); margin-inline: auto; }
+.skip-link { position: fixed; z-index: 150; background: white; padding: 10px; transform: translateY(-150%); }
+.skip-link:focus { transform: translateY(0); }
+.site-header { background: #f8f5eff5; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 40; backdrop-filter: blur(12px); }
+.site-header-inner { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.wordmark { display: block; }
+.wordmark img { display: block; width: clamp(112px, 28vw, 156px); height: auto; }
+.site-header nav { display: flex; gap: clamp(16px, 4vw, 40px); font-size: 13px; font-weight: 700; }
+.site-header nav a { color: var(--ink); text-decoration: none; }
+.site-header nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.cart-trigger { display: flex; align-items: center; gap: 9px; padding: 9px 13px; border-radius: 40px; border: 1px solid var(--line); font-size: 13px; font-weight: 700; background: var(--white); color: var(--ink); }
+.cart-trigger b { background: var(--blue); color: white; border-radius: 24px; min-width: 23px; padding: 3px 6px; font-size: 11px; }
+.hero { display: grid; grid-template-columns: 1fr .95fr; gap: clamp(24px, 6vw, 92px); align-items: center; padding-block: clamp(32px, 6vw, 78px); }
+.eyebrow { display: flex; align-items: center; gap: 9px; color: var(--blue); font-size: 10px; text-transform: uppercase; letter-spacing: .13em; font-weight: 800; }
+.eyebrow span { width: 18px; height: 3px; border-radius: 99px; background: var(--orange); }
+.hero h1 { font: 600 clamp(56px, 7.1vw, 105px)/.82 var(--serif); margin: 23px 0; letter-spacing: -.05em; }
+.hero h1 em { color: var(--blue); font-weight: 500; }
+.hero-copy > p:not(.eyebrow) { color: var(--muted); max-width: 45ch; line-height: 1.7; font-size: 15px; }
+.site-button { min-height: 43px; display: inline-flex; align-items: center; justify-content: center; gap: 12px; border-radius: 8px; padding: 9px 15px; border: 1px solid var(--line); color: var(--ink); background: white; font: 700 13px var(--sans); text-decoration: none; cursor: pointer; }
+.site-button:hover { border-color: var(--blue); }
+.site-button.primary { background: var(--blue); border-color: var(--blue); color: white; }
+.site-button.primary:hover { background: #293f80; }
+.site-button:disabled { opacity: .55; cursor: default; }
+.hero .site-button { margin-top: 24px; }
+.hero-figure { margin: 0; background: #e5ecff; padding: clamp(12px, 2vw, 22px); border-radius: 7px 48px 7px 7px; border-bottom: 3px solid var(--orange); }
+.hero-figure img { display: block; width: 100%; height: clamp(220px, 32vw, 395px); object-fit: contain; background: white; border-radius: 4px 35px 4px 4px; }
+.hero-figure figcaption { display: flex; justify-content: space-between; gap: 12px; margin-top: 11px; color: #2a4282; font-size: 11px; }
+.hero-figure figcaption span:first-child { font-weight: 800; letter-spacing: .11em; }
+.catalog { padding: 38px 0 68px; border-top: 1px solid var(--line); }
+.section-heading h2 { font: 600 clamp(39px, 5vw, 63px)/1 var(--serif); letter-spacing: -.035em; margin: 8px 0 20px; }
+.order-steps { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 0 0 21px; padding: 0; list-style: none; color: var(--muted); font-size: 12px; }
+.order-steps b { display: inline-grid; place-items: center; min-width: 21px; height: 21px; margin-right: 3px; border-radius: 50%; background: #ffe5d2; color: #82380f; }
+.category-tabs { display: flex; gap: 8px; flex-wrap: wrap; padding-bottom: 17px; }
+.category-tabs button { border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; background: #fffaf5; color: var(--ink); white-space: nowrap; font: 700 12px var(--sans); cursor: pointer; }
+.category-tabs button:hover { border-color: var(--blue); }
+.category-tabs button[aria-pressed=true] { background: var(--blue); color: white; border-color: var(--blue); }
+.catalog-tools { display: grid; grid-template-columns: minmax(220px, 2fr) minmax(160px, 1fr) minmax(130px, .85fr) auto; align-items: end; gap: 13px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: #edf1fc; }
+.catalog-tools label { min-width: 0; }
+.catalog-tools label span { display: block; font-size: 11px; font-weight: 800; color: #334a86; margin-bottom: 5px; }
+.catalog-tools input, .catalog-tools select { width: 100%; min-height: 43px; padding: 8px 10px; border: 1px solid #c8d2e9; border-radius: 7px; background: white; font: 500 14px var(--sans); color: var(--ink); }
+.text-button { padding: 10px 3px; color: var(--blue); font-size: 12px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.result-count { color: var(--muted); margin: 14px 0 10px; font-size: 12px; }
+.catalog-group { padding-top: 22px; }
+.catalog-group + .catalog-group { border-top: 1px solid var(--line); margin-top: 45px; padding-top: 28px; }
+.group-heading { margin-bottom: 15px; }
+.group-heading h3, .empty-catalog h3 { font: 700 clamp(31px, 4vw, 45px)/1 var(--serif); margin: 0 0 6px; }
+.group-heading p, .empty-catalog p { font-size: 13px; color: var(--muted); }
+.empty-catalog { padding: 30px 0 20px; }
+.product-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); grid-auto-rows: 1fr; gap: 16px; }
+.product-tile { display: flex; flex-direction: column; min-width: 0; overflow: hidden; background: var(--white); border: 1px solid var(--line); border-radius: 12px; }
+.product-tile:hover { border-color: #9db1dc; box-shadow: 0 7px 25px #233e7610; }
+.tile-image {
+  display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center;
+  flex: none; contain: size; width: 100%; aspect-ratio: 1.18; padding: clamp(10px, 1.5vw, 18px);
+  background: var(--photo-mat); border-bottom: 1px solid var(--line); cursor: pointer;
+}
+.tile-image img, #mlMainPhoto {
+  display: block; width: auto; height: auto; max-width: 100%; max-height: 100%;
+  object-fit: contain; background: white; outline: 1px solid var(--photo-edge);
+  box-shadow: var(--photo-shadow);
+}
+.tile-body { display: flex; flex: 1; flex-direction: column; gap: 8px; padding: 14px; }
+.tile-category { color: var(--blue); font-weight: 800; font-size: 9px; text-transform: uppercase; letter-spacing: .08em; }
+.tile-body h4 { font: 700 23px/1.03 var(--serif); margin: 0; }
+.tile-detail { font-size: 11px; color: var(--muted); }
+.tile-action { margin-top: auto; padding-top: 6px; display: flex; align-items: center; gap: 8px; justify-content: space-between; flex-wrap: wrap; }
+.tile-price { font-size: 11px; color: var(--muted); }
+.tile-price b { display: block; color: var(--blue); font-size: 15px; font-weight: 800; }
+.tile-action button { flex: 1 0 auto; }
+.site-footer { background: #263d78; color: #fcf9f1; padding: 25px 0; }
+.site-footer .site-wrap { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 13px; }
+.site-footer a { color: inherit; }
+.cart-product { display: grid; grid-template-columns: 54px minmax(0, 1fr) auto; gap: 10px; padding: 11px; background: white; border: 1px solid var(--line); border-radius: 10px; }
+.cart-product img { width: 54px; height: 54px; padding: 3px; object-fit: contain; background: var(--photo-mat); border: 1px solid var(--photo-edge); border-radius: 6px; }
+.cart-product h4 { font-size: 13px; font-weight: 800; line-height: 1.3; }
+.cart-product p { color: var(--muted); font-size: 11px; }
+.cart-product .quantity-control { grid-column: 2; }
+.cart-product .cart-price { text-align: right; font-size: 11px; font-weight: 800; align-self: center; }
+.quantity-control { display: inline-flex; width: max-content; max-width: 100%; align-items: center; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
+.quantity-control button { min-width: 34px; min-height: 36px; color: var(--blue); font-weight: 800; background: #edf1fc; }
+.quantity-control button:disabled { opacity: .45; }
+.quantity-control output, .quantity-control input { text-align: center; font-size: 13px; width: 63px; padding: 4px; }
+.quantity-control input { appearance: textfield; }
+.quantity-control input::-webkit-inner-spin-button { appearance: none; }
+.cart-remove { width: 34px; height: 34px; border-radius: 6px; justify-self: end; color: var(--muted); font-size: 20px; }
+.cart-remove:hover { background: #f5eae7; color: #71362b; }
+.cart-event { margin-top: 14px; border: 1px solid var(--line); border-radius: 10px; background: #f4f7ff; }
+.cart-event summary { padding: 11px; font-size: 13px; font-weight: 800; cursor: pointer; }
+.cart-event summary span { color: var(--muted); font-size: 10px; margin-left: 6px; font-weight: 500; }
+.cart-event-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 0 11px 11px; }
+.cart-event-fields label { min-width: 0; font-size: 11px; font-weight: 700; }
+.cart-event-fields input, .cart-event-fields textarea { display: block; width: 100%; min-width: 0; margin-top: 4px; border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; background: white; color: var(--ink); font-size: 13px; }
+.cart-event-fields textarea { resize: vertical; }
+.cart-event-note { grid-column: 1 / -1; }
+.cart-lot-notice { border-left: 3px solid var(--orange); padding: 6px 9px; background: #fff1e5; font-size: 11px; color: #71360f; }
+.item-options { display: grid; align-content: start; gap: 13px; min-width: 0; color: var(--ink); }
+.item-description { color: var(--muted); font-size: 12px; line-height: 1.5; }
+.item-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 13px; margin: 0; padding-bottom: 11px; border-bottom: 1px solid var(--line); }
+.item-specs div:last-child { grid-column: 1 / -1; }
+.item-specs dt, .item-price p { color: var(--muted); font-size: 11px; }
+.item-specs dd { margin: 0; font-size: 12px; font-weight: 700; }
+.item-quantity { border: 1px solid var(--line); border-left: 3px solid var(--orange); border-radius: 8px; padding: 11px; background: #f4f7ff; }
+.item-quantity label { display: block; font-size: 13px; font-weight: 800; }
+.item-quantity-row { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-top: 7px; }
+.item-quantity-row > output { color: var(--blue); font-size: 13px; font-weight: 800; }
+.item-price { display: flex; align-items: end; justify-content: space-between; gap: 8px; }
+.item-price strong { color: var(--blue); font-size: 20px; }
+#productConfigModal > div { border-radius: 16px; }
+#productConfigModal .product-photo-frame {
+  display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center;
+  height: clamp(260px, 45vh, 410px); min-height: 0; padding: 18px;
+  background: var(--photo-mat); border-color: var(--photo-edge);
+}
+#productConfigModal .ml-thumb, #productConfigModal .art-option img { background: var(--photo-mat); padding: 3px; }
+#productConfigModal .thumb-active { border-color: var(--blue) !important; box-shadow: 0 0 0 1px var(--blue); }
+#productConfigModal .art-option[aria-pressed=true] { border-color: var(--blue); outline-color: var(--blue); }
+#lbViewport { touch-action: pan-x pan-y; background: #17284a; border-radius: 8px; }
+#lbMainImg { background: white; outline: 1px solid var(--photo-edge); outline-offset: -1px; }
+@media (max-width: 900px) { .product-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+@media (max-width: 680px) {
+  html { scroll-padding-top: 4.75rem; }
+  .site-wrap { width: calc(100% - 28px); }
+  .site-header-inner { min-height: 62px; gap: 8px; }
+  .site-header nav { display: none; }
+  .hero { grid-template-columns: 1fr; gap: 22px; padding-block: 29px; }
+  .hero h1 { margin-block: 16px; }
+  .hero-copy > p:not(.eyebrow) { font-size: 14px; }
+  .hero .site-button { margin-top: 14px; }
+  .hero-figure img { height: clamp(158px, 50vw, 265px); }
+  .catalog { padding-top: 25px; }
+  .category-tabs { flex-wrap: nowrap; overflow-x: auto; padding: 3px 3px 13px; }
+  .catalog-tools { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 8px; padding: 10px; }
+  .search-control { grid-column: 1 / -1; }
+  .catalog-tools .text-button { width: max-content; padding: 6px 2px 2px; }
+  .product-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 9px; }
+  .tile-body { padding: 9px; gap: 6px; }
+  .tile-body h4 { font-size: 20px; }
+  .tile-action { align-items: start; flex-direction: column; }
+  .tile-action .site-button { width: 100%; min-height: 38px; padding: 7px; font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
   </style>
 </head>
-<body class="bg-brand-stone text-stone-800 font-sans antialiased selection:bg-brand-orange selection:text-white min-h-screen flex flex-col justify-between">
-
-  <!-- Header -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-brand-border">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-      
-      <a href="#" class="flex flex-col group py-1">
-        <span class="font-logo font-bold tracking-[0.28em] text-[13px] sm:text-[15px] text-brand-orange leading-none pl-0.5">
-          EMPÓRIO
-        </span>
-        <span class="font-logo font-black text-2xl sm:text-[28px] text-brand-blue tracking-tight -mt-0.5 group-hover:opacity-90 transition-opacity">
-          AVENIDA
-        </span>
+<body class="site">
+  <a class="skip-link" href="#catalogo">Ir para o catálogo</a>
+  <header class="site-header">
+    <div class="site-wrap site-header-inner">
+      <a class="wordmark" href="#inicio" aria-label="Empório Avenida, início">
+        <img src="imagens/logo-emporio-avenida.png" alt="Empório Avenida" width="2461" height="825">
       </a>
-
-      <div class="hidden md:block text-xs uppercase tracking-widest text-stone-500 font-medium">
-        Papelaria Artesanal & Convites de Casamento
-      </div>
-
-      <button 
-        onclick="toggleCart(true)" 
-        class="flex items-center gap-2.5 px-4 py-2 rounded-full border border-stone-300 hover:border-brand-blue text-stone-700 hover:text-brand-blue bg-white transition-all text-xs font-semibold tracking-wider uppercase"
-      >
-        <span>Carrinho</span>
-        <span id="cartCountBadge" class="bg-brand-orange text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+      <nav aria-label="Navegação principal"><a href="#catalogo">Catálogo</a><a href="#novos-modelos">Novas artes</a></nav>
+      <button class="cart-trigger" type="button" onclick="toggleCart(true)" aria-label="Abrir carrinho">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 8h16l1 13H3L4 8Z"/><path d="M8 9V6a4 4 0 1 1 8 0v3"/></svg>
+        <span>Carrinho</span><b id="cartCountBadge" aria-live="polite">0</b>
       </button>
     </div>
   </header>
-
-  <!-- Busca e Filtros -->
-  <section class="border-b border-brand-border bg-white py-4 sticky top-20 z-30 shadow-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center gap-3">
-        
-        <div class="relative flex-1">
-          <input 
-            type="text" 
-            id="searchInput"
-            placeholder="Buscar por nome do convite, dimensão, papel vegetal, linho ou perolado..."
-            class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm bg-stone-50 border border-stone-200 rounded-lg focus:outline-none focus:border-brand-blue focus:bg-white transition-all text-stone-800 placeholder-stone-400"
-            oninput="handleSearch(this.value)"
-          >
-          <svg class="w-4 h-4 text-stone-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-          </svg>
-        </div>
-
-        <div class="relative">
-          <button 
-            id="filterDropdownBtn" 
-            onclick="toggleFilterMenu()"
-            class="flex items-center gap-2 px-4 py-2.5 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-lg text-xs font-semibold text-stone-700 tracking-wider uppercase transition-all"
-          >
-            <svg class="w-4 h-4 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
-            </svg>
-            <span id="activeFilterName">Filtros</span>
-            <svg class="w-3.5 h-3.5 text-stone-400 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-
-          <div 
-            id="filterMenu" 
-            class="hidden absolute right-0 mt-2 w-72 bg-white border border-stone-200 rounded-xl shadow-xl p-4 z-50 text-xs space-y-4"
-          >
-            <div>
-              <div class="font-bold text-stone-900 uppercase tracking-wider text-[11px] mb-2 border-b border-stone-100 pb-1">
-                Filtrar por Categoria
-              </div>
-              <div class="space-y-1">
-                <button onclick="selectCategory('Todas')" class="filter-opt w-full text-left px-2.5 py-1.5 rounded bg-stone-100 text-brand-blue font-bold flex justify-between items-center" data-val="Todas">
-                  <span>Todas as Categorias</span>
-                  <span class="text-[10px] text-stone-400">Padrão</span>
-                </button>
-                <button onclick="selectCategory('Manuais dos Padrinhos & Convidados')" class="filter-opt w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-100 text-stone-600" data-val="Manuais dos Padrinhos & Convidados">Manuais dos Padrinhos</button>
-                <button onclick="selectCategory('Convites de Casamento & Especiais')" class="filter-opt w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-100 text-stone-600" data-val="Convites de Casamento & Especiais">Convites de Casamento</button>
-                <button onclick="selectCategory('Menus & Cardápios de Mesa')" class="filter-opt w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-100 text-stone-600" data-val="Menus & Cardápios de Mesa">Menus & Cardápios</button>
-                <button onclick="selectCategory('Lágrimas de Alegria')" class="filter-opt w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-100 text-stone-600" data-val="Lágrimas de Alegria">Lágrimas de Alegria</button>
-                <button onclick="selectCategory('Placas de Reservado')" class="filter-opt w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-100 text-stone-600" data-val="Placas de Reservado">Placas de Reservado</button>
-                <button onclick="selectCategory('Votos dos Noivos')" class="filter-opt w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-100 text-stone-600" data-val="Votos dos Noivos">Votos dos Noivos</button>
-                <button onclick="selectCategory('Ventarolas')" class="filter-opt w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-100 text-stone-600" data-val="Ventarolas">Ventarolas</button>
-                <button onclick="selectCategory('Tags & Lembrancinhas')" class="filter-opt w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-100 text-stone-600" data-val="Tags & Lembrancinhas">Tags & Lembrancinhas</button>
-                <button onclick="selectCategory('Pajem & Daminha')" class="filter-opt w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-100 text-stone-600" data-val="Pajem & Daminha">Pajem & Daminha</button>
-              </div>
-            </div>
-
-            <div class="pt-2 border-t border-stone-100">
-              <div class="font-bold text-stone-900 uppercase tracking-wider text-[11px] mb-2">Tipo de Papel</div>
-              <div class="grid grid-cols-2 gap-1.5 text-[11px]">
-                <button onclick="selectPaper('TODOS')" class="paper-opt text-left px-2 py-1 rounded bg-stone-100 font-bold text-brand-blue" data-paper="TODOS">Todos os Papéis</button>
-                <button onclick="selectPaper('Perolado')" class="paper-opt text-left px-2 py-1 rounded hover:bg-stone-100 text-stone-600" data-paper="Perolado">Perolado 180g</button>
-                <button onclick="selectPaper('Cartão')" class="paper-opt text-left px-2 py-1 rounded hover:bg-stone-100 text-stone-600" data-paper="Cartão">Cartão 180g</button>
-                <button onclick="selectPaper('Vegetal')" class="paper-opt text-left px-2 py-1 rounded hover:bg-stone-100 text-stone-600" data-paper="Vegetal">Vegetal 90g</button>
-                <button onclick="selectPaper('Linho')" class="paper-opt text-left px-2 py-1 rounded hover:bg-stone-100 text-stone-600" data-paper="Linho">Linho 180g</button>
-              </div>
-            </div>
-
-            <button onclick="resetFilters()" class="w-full text-center py-1.5 text-[11px] text-stone-500 hover:text-brand-orange border-t border-stone-100 pt-2">
-              Limpar Filtros
-            </button>
-          </div>
-        </div>
-
+  <main id="inicio">
+    <section class="site-wrap hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> Papelaria personalizada para casamento</p>
+        <h1 id="hero-title">O seu casamento,<br><em>no papel.</em></h1>
+        <p>Do primeiro convite aos detalhes da mesa, escolha as artes que combinam com a sua celebração e monte seu pedido.</p>
+        <a class="site-button primary" href="#catalogo">Explorar catálogo <span aria-hidden="true">↓</span></a>
       </div>
-
-      <div id="filterPillContainer" class="hidden items-center gap-2 pt-3 text-xs">
-        <span class="text-stone-400">Filtrando por:</span>
-        <span id="activeFilterPill" class="px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-700 font-medium border border-stone-200"></span>
-        <button onclick="resetFilters()" class="text-brand-orange hover:underline text-[11px]">Remover</button>
+      <figure class="hero-figure">
+        <img src="imagens/modelos-revisados/pdf-014-01-capa.webp" alt="Envelope de casamento com lacre verde e flores brancas" width="620" height="620" fetchpriority="high">
+        <figcaption><span>01 / PAPELARIA</span><span>Convite floral e lacre</span></figcaption>
+      </figure>
+    </section>
+    <section id="catalogo" class="site-wrap catalog" aria-labelledby="catalog-title">
+      <div class="section-heading">
+        <p class="eyebrow"><span></span> A coleção</p>
+        <h2 id="catalog-title">Escolha por categoria</h2>
+        <ol class="order-steps" aria-label="Como pedir">
+          <li><b>1</b> Escolha os modelos</li>
+          <li><b>2</b> Confira o carrinho</li>
+          <li><b>3</b> Peça o orçamento no WhatsApp</li>
+        </ol>
       </div>
-    </div>
-  </section>
-
-  <!-- Catálogo por Categorias -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1">
-    <div id="catalogSectionsContainer" class="space-y-14"></div>
-
-    <div id="emptyResults" class="hidden text-center py-20">
-      <p class="font-serif text-2xl text-stone-700">Nenhum produto encontrado</p>
-      <p class="text-xs text-stone-500 mt-1">Verifique o termo de busca ou altere o filtro de papel e categoria.</p>
-      <button onclick="resetFilters()" class="mt-4 px-4 py-2 border border-stone-300 rounded text-xs font-semibold text-stone-700 hover:border-brand-blue">
-        Exibir Todos os Produtos
-      </button>
-    </div>
+      <div id="categoryTabs" class="category-tabs" aria-label="Categorias"></div>
+      <div class="catalog-tools">
+        <label class="search-control"><span>Buscar</span><input id="catalogSearch" type="search" placeholder="Ex.: convite floral ou menu"></label>
+        <label><span>Coleção</span><select id="catalogLine"><option value="">Todo o catálogo</option><option value="original">Modelos originais</option><option value="new">Novas artes</option></select></label>
+        <label><span>Papel</span><select id="catalogPaper"><option value="">Todos os papéis</option><option>Perolado</option><option>Cartão</option><option>Vegetal</option><option>Linho</option></select></label>
+        <button type="button" id="clearCatalogFilters" class="text-button">Limpar filtros</button>
+      </div>
+      <p id="catalogCount" class="result-count" role="status"></p>
+      <div id="emptyCatalog" class="empty-catalog" hidden><h3>Nenhum modelo encontrado</h3><p>Tente outro termo ou limpe os filtros.</p></div>
+      <section id="original-modelos" class="catalog-group" aria-labelledby="original-title">
+        <div class="group-heading"><h3 id="original-title">Modelos originais</h3><p>Abra um modelo para ver o papel, as medidas e o preço pela quantidade.</p></div>
+        <div id="originalGrid" class="product-grid"></div>
+      </section>
+      <section id="novos-modelos" class="catalog-group" aria-labelledby="new-title">
+        <div class="group-heading"><h3 id="new-title">Novas artes</h3><p>Escolha a arte e inclua no mesmo pedido para consultar o valor.</p></div>
+        <div id="newGrid" class="product-grid"></div>
+      </section>
+    </section>
   </main>
 
   <!-- Modal Fino do Produto (Galeria Mercado Livre + Configuração Limpa) -->
-  <div id="productConfigModal" class="fixed inset-0 z-50 hidden bg-stone-900/50 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+  <div id="productConfigModal" role="dialog" aria-modal="true" aria-labelledby="modalProductName" class="fixed inset-0 z-50 hidden bg-stone-900/50 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
     <div class="bg-white w-full max-w-4xl rounded-xl shadow-2xl border border-stone-200 overflow-hidden my-6 max-h-[92vh] flex flex-col">
       
       <!-- Cabeçalho -->
@@ -186,7 +283,7 @@
           <span id="modalCategoryBadge" class="text-[10px] font-bold uppercase tracking-widest text-brand-orange">Categoria</span>
           <h2 id="modalProductName" class="font-serif text-lg sm:text-2xl text-stone-900 font-bold leading-tight">Nome do Convite</h2>
         </div>
-        <button onclick="closeProductModal()" class="text-stone-400 hover:text-stone-700 p-1.5 rounded-lg hover:bg-stone-200/50 transition-colors">
+        <button type="button" aria-label="Fechar visualização" onclick="closeProductModal()" class="text-stone-400 hover:text-stone-700 p-1.5 rounded-lg hover:bg-stone-200/50 transition-colors">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 18L18 6M6 6l12 12"/>
           </svg>
@@ -196,15 +293,15 @@
       <div class="p-4 sm:p-6 overflow-y-auto flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         <!-- Galeria Mercado Livre com Acesso ao Zoom da Imagem Inteira -->
-        <div class="lg:col-span-6 flex flex-col-reverse sm:flex-row gap-3">
+        <div class="lg:col-span-6 min-w-0 flex flex-col-reverse sm:flex-row gap-3">
           <div id="mlThumbsList" class="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto sm:max-h-[400px] max-w-full sm:w-20 shrink-0 custom-scroll pb-1 sm:pb-0"></div>
 
-          <div class="relative flex-1 bg-stone-50 rounded-lg border border-stone-200 overflow-hidden flex items-center justify-center min-h-[300px] sm:min-h-[400px] group cursor-zoom-in" onclick="openLightbox()">
+          <div class="product-photo-frame relative min-w-0 flex-1 rounded-lg border overflow-hidden cursor-zoom-in" onclick="openLightbox()">
             <img 
               id="mlMainPhoto" 
               src="" 
               alt="Visualização" 
-              class="w-full h-full object-cover sm:object-contain transition-transform duration-300 group-hover:scale-105"
+              class="object-contain"
             >
             
             <!-- Botão de Ver Imagem Inteira -->
@@ -216,7 +313,7 @@
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/>
               </svg>
-              <span>Ver inteira</span>
+              <span>Ampliar imagem</span>
             </button>
 
             <span id="mlPhotoCounter" class="absolute bottom-2.5 right-2.5 bg-stone-900/75 text-white text-[10px] font-medium px-2 py-0.5 rounded backdrop-blur-xs">
@@ -228,105 +325,34 @@
           </div>
         </div>
 
-        <!-- Especificações e Configuração de Lote -->
-        <div class="lg:col-span-6 flex flex-col justify-between space-y-4">
-          
-          <div class="space-y-3">
-            <p id="modalProductDesc" class="text-xs sm:text-sm text-stone-600 leading-relaxed"></p>
-
-            <!-- Box Resumido de Especificações Comerciais -->
-            <div class="bg-stone-50 border border-stone-200 rounded-lg p-3.5 space-y-2">
-              <span class="font-bold text-stone-800 uppercase tracking-wider text-[10px] block border-b border-stone-200/80 pb-1.5">
-                Especificações do Produto
-              </span>
-              
-              <div class="grid grid-cols-2 gap-2 text-xs">
-                <div>
-                  <span class="text-stone-400 block text-[10px] uppercase font-semibold">Papel</span>
-                  <span id="modalSpecPapel" class="font-semibold text-stone-800 text-xs">-</span>
-                </div>
-                <div>
-                  <span class="text-stone-400 block text-[10px] uppercase font-semibold">Dimensões</span>
-                  <span id="modalSpecFormato" class="font-semibold text-stone-800 text-xs">-</span>
-                </div>
-                <div>
-                  <span class="text-stone-400 block text-[10px] uppercase font-semibold">Itens Inclusos</span>
-                  <span id="modalSpecInclusos" class="font-semibold text-stone-800 text-xs">-</span>
-                </div>
-                <div>
-                  <span class="text-stone-400 block text-[10px] uppercase font-semibold">Lote Econômico</span>
-                  <span id="modalSpecMinOrder" class="font-semibold text-stone-800 text-xs">-</span>
-                </div>
+        <div class="item-options lg:col-span-6">
+          <p id="modalProductDesc" class="item-description" hidden></p>
+          <dl id="modalSpecs" class="item-specs" hidden>
+            <div><dt>Papel</dt><dd id="modalSpecPapel"></dd></div>
+            <div><dt>Medidas</dt><dd id="modalSpecFormato"></dd></div>
+            <div><dt>Incluso</dt><dd id="modalSpecInclusos"></dd></div>
+          </dl>
+          <div id="modalArtPicker" hidden>
+            <p class="mb-2 text-sm font-semibold">Cor e arte <span id="modalArtLabel" class="ml-1 font-normal text-stone-600" aria-live="polite"></span></p>
+            <div id="modalArtOptions" class="flex flex-wrap gap-2"></div>
+          </div>
+          <div class="item-quantity">
+            <label for="modalQtyInput" id="modalQtyLabel">Quantidade</label>
+            <p id="modalLotHelp" class="item-description"></p>
+            <div class="item-quantity-row">
+              <div class="quantity-control">
+                <button type="button" id="modalQtyMinus" aria-label="Diminuir quantidade" onclick="changeItemLots(-1)">−</button>
+                <input id="modalQtyInput" type="number" inputmode="numeric" step="1" min="1" value="1" aria-describedby="modalLotHelp" oninput="refreshItemQuantity()" onchange="changeItemLots(0)">
+                <button type="button" id="modalQtyPlus" aria-label="Aumentar quantidade" onclick="changeItemLots(1)">+</button>
               </div>
+              <output id="modalUnits" aria-live="polite"></output>
             </div>
           </div>
-
-          <!-- Seleção de Quantidade com Opção de Múltiplos Exclusivos -->
-          <div class="border border-stone-200 rounded-lg p-4 bg-white space-y-3.5">
-            
-            <div class="flex items-center justify-between">
-              <label class="text-xs font-bold uppercase tracking-wider text-stone-700">Quantidade</label>
-              <span class="text-[11px] text-stone-500">Mínimo: <b id="modalMinNotice">1</b> un</span>
-            </div>
-
-            <!-- Opção de Bloqueio em Múltiplos (Menor Preço por Unidade) -->
-            <label class="flex items-center gap-2 p-2 rounded bg-stone-50 border border-stone-200 cursor-pointer text-xs text-stone-700 select-none">
-              <input 
-                type="checkbox" 
-                id="lockMultiplesCheckbox" 
-                checked 
-                onchange="toggleLockMultiples(this.checked)"
-                class="w-4 h-4 text-brand-blue rounded border-stone-300 focus:ring-0"
-              >
-              <div class="flex-1">
-                <span class="font-bold text-stone-900 block leading-tight">Escolher apenas em múltiplos do lote econômico</span>
-                <span class="text-[10px] text-stone-500" id="lockMultiplesDesc">Garante o menor valor por unidade</span>
-              </div>
-            </label>
-
-            <!-- Stepper e Pílulas de Múltiplos -->
-            <div class="space-y-2">
-              <div class="flex items-center gap-3">
-                <div class="inline-flex items-center border border-stone-300 rounded bg-stone-50">
-                  <button onclick="changeModalQty(-1)" class="px-3.5 py-1.5 text-stone-600 hover:text-stone-900 font-bold hover:bg-stone-200 transition-colors">-</button>
-                  <input 
-                    type="number" 
-                    id="modalQtyInput" 
-                    value="1" 
-                    min="1"
-                    class="w-16 text-center font-bold text-xs sm:text-sm bg-transparent focus:outline-none"
-                    oninput="onModalInputQty(this.value)"
-                  >
-                  <button onclick="changeModalQty(1)" class="px-3.5 py-1.5 text-stone-600 hover:text-stone-900 font-bold hover:bg-stone-200 transition-colors">+</button>
-                </div>
-
-                <div id="modalQuickBatchPills" class="flex items-center gap-1.5 flex-wrap"></div>
-              </div>
-            </div>
-
+          <div class="item-price">
+            <div><p id="modalPriceLabel">Subtotal estimado</p><strong id="modalCalcTotal"></strong></div>
+            <p id="modalCalcPerUnit"></p>
           </div>
-
-          <!-- Campos Diretos de Valor Unitário e Valor Total -->
-          <div class="pt-3 border-t border-stone-200 flex items-center justify-between gap-4">
-            <div class="space-y-0.5">
-              <div class="flex items-baseline gap-2">
-                <span class="text-[11px] uppercase tracking-wider text-stone-500 font-medium">Valor Unitário:</span>
-                <span id="modalCalcPerUnit" class="text-sm font-bold text-stone-800">R$ 0,00</span>
-              </div>
-              <div class="flex items-baseline gap-2">
-                <span class="text-[11px] uppercase tracking-wider text-stone-500 font-medium">Valor Total:</span>
-                <span id="modalCalcTotal" class="text-2xl font-bold font-serif text-brand-blue">R$ 0,00</span>
-              </div>
-            </div>
-
-            <button 
-              onclick="confirmAddToCartFromModal()" 
-              class="px-5 py-3 rounded bg-brand-orange hover:bg-brand-orange-dark text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm text-center"
-            >
-              Adicionar ao Pedido
-            </button>
-          </div>
-
+          <button type="button" class="site-button primary w-full" onclick="confirmAddToCartFromModal()">Adicionar ao carrinho</button>
         </div>
 
       </div>
@@ -335,10 +361,10 @@
   </div>
 
   <!-- Modal Lightbox (Visualizador em Tela Cheia com Zoom) -->
-  <div id="lightboxModal" class="fixed inset-0 z-60 hidden bg-stone-950/90 backdrop-blur-md flex flex-col justify-between p-4 select-none">
+  <div id="lightboxModal" role="dialog" aria-modal="true" aria-labelledby="lbProductName" class="fixed inset-0 hidden bg-stone-950/90 backdrop-blur-md flex flex-col justify-between p-4 select-none">
     
     <!-- Topo Lightbox -->
-    <div class="flex items-center justify-between text-white max-w-6xl w-full mx-auto pb-2">
+    <div class="flex items-center flex-wrap gap-2 justify-between text-white max-w-6xl w-full mx-auto pb-2">
       <div class="text-xs font-medium tracking-wide">
         <span id="lbProductName" class="font-serif text-base text-stone-100 font-bold block">Produto</span>
         <span id="lbCounter" class="text-stone-400 text-[11px]">Foto 1 de 1</span>
@@ -351,7 +377,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
           </svg>
         </button>
-        <button onclick="resetZoom()" class="px-2.5 py-1.5 rounded bg-stone-800/80 hover:bg-stone-700 text-stone-200 hover:text-white text-xs font-semibold transition-colors" title="Resetar Tamanho">
+        <button id="lbZoomReset" onclick="resetZoom()" class="px-2.5 py-1.5 rounded bg-stone-800/80 hover:bg-stone-700 text-stone-200 hover:text-white text-xs font-semibold transition-colors" title="Resetar Tamanho">
           100%
         </button>
         <button onclick="adjustZoom(0.25)" class="p-2 rounded bg-stone-800/80 hover:bg-stone-700 text-stone-200 hover:text-white transition-colors" title="Aumentar Zoom">
@@ -368,27 +394,23 @@
     </div>
 
     <!-- Área da Imagem Inteira com Zoom -->
-    <div class="flex-1 flex items-center justify-center relative overflow-hidden my-2">
+    <div class="flex-1 min-h-0 flex items-center justify-center relative overflow-hidden my-2">
       
       <!-- Seta Anterior -->
-      <button onclick="prevLightboxPhoto()" class="absolute left-2 z-10 p-3 rounded-full bg-stone-900/60 hover:bg-stone-900 text-white transition-all">
+      <button type="button" aria-label="Imagem anterior" onclick="prevLightboxPhoto()" class="absolute left-2 z-10 p-3 rounded-full bg-stone-900/60 hover:bg-stone-900 text-white transition-all">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
       </button>
 
-      <!-- Imagem Ampliada -->
-      <div class="w-full h-full flex items-center justify-center overflow-auto custom-scroll" onclick="toggleQuickZoom()">
-        <img 
-          id="lbMainImg" 
-          src="" 
-          alt="Visualização Completa" 
-          class="zoom-canvas max-h-[82vh] max-w-[88vw] object-contain cursor-zoom-in"
-        >
+      <div id="lbViewport" class="h-full w-full overflow-auto">
+        <div id="lbCanvas" class="grid min-h-full min-w-full place-items-center">
+          <img id="lbMainImg" alt="Visualização ampliada" draggable="false">
+        </div>
       </div>
 
       <!-- Seta Próxima -->
-      <button onclick="nextLightboxPhoto()" class="absolute right-2 z-10 p-3 rounded-full bg-stone-900/60 hover:bg-stone-900 text-white transition-all">
+      <button type="button" aria-label="Próxima imagem" onclick="nextLightboxPhoto()" class="absolute right-2 z-10 p-3 rounded-full bg-stone-900/60 hover:bg-stone-900 text-white transition-all">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
@@ -401,60 +423,1334 @@
   </div>
 
   <!-- Drawer do Carrinho -->
-  <div id="cartDrawer" class="fixed inset-0 z-50 hidden">
+  <div id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartDrawerTitle" class="fixed inset-0 z-50 hidden">
     <div onclick="toggleCart(false)" class="absolute inset-0 bg-stone-900/30 backdrop-blur-xs"></div>
     <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col z-10 border-l border-brand-border">
       
       <div class="p-5 border-b border-brand-border flex items-center justify-between">
         <div>
-          <h3 class="font-serif text-lg font-bold text-stone-900">Seu Pedido</h3>
+          <h3 id="cartDrawerTitle" class="font-serif text-3xl font-bold">Seu pedido</h3>
           <span id="drawerItemsCountText" class="text-xs text-stone-500">0 modelos adicionados</span>
         </div>
-        <button onclick="toggleCart(false)" class="text-stone-400 hover:text-stone-700 p-1">
+        <button type="button" id="closeCartButton" aria-label="Fechar carrinho" onclick="toggleCart(false)" class="text-stone-400 hover:text-stone-700 p-1">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
           </svg>
         </button>
       </div>
 
-      <div id="cartDrawerList" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scroll"></div>
+      <div class="min-h-0 flex-1 overflow-y-auto p-4 custom-scroll">
+        <div id="cartDrawerList" class="space-y-3"></div>
+        <details id="cartEventDetails" class="cart-event" hidden>
+          <summary>Dados do casamento <span>Opcional</span></summary>
+          <div class="cart-event-fields">
+            <label>Data do casamento<input type="date" id="cartEventDate"></label>
+            <label>Cidade e estado<input type="text" id="cartEventCity" maxlength="100" placeholder="Ex.: Campinas, SP"></label>
+            <label class="cart-event-note">Observações<textarea id="cartEventNote" maxlength="400" rows="2" placeholder="Ex.: cores, acabamento ou prazo desejado"></textarea></label>
+          </div>
+        </details>
+      </div>
 
       <div class="p-5 border-t border-brand-border bg-stone-50 space-y-3">
-        <div class="flex justify-between items-baseline">
-          <span class="text-xs font-bold uppercase tracking-wider text-stone-600">Total Previsto:</span>
+        <div id="cartSubtotalRow" class="flex justify-between items-baseline gap-3">
+          <span class="text-xs font-bold text-stone-700">Subtotal dos itens com preço</span>
           <span id="cartDrawerGrandTotal" class="text-xl font-bold font-serif text-brand-blue">R$ 0,00</span>
         </div>
-        <p class="text-[11px] text-stone-500 leading-normal">
-          Ao clicar, seu pedido formatado será enviado para nosso WhatsApp <b>(+55 64 8447-1933)</b> para envio dos nomes, brasão e personalização.
-        </p>
-
-        <button 
-          onclick="checkoutToWhatsApp()" 
-          class="w-full py-3.5 bg-brand-blue hover:bg-brand-blue-dark text-white rounded text-xs font-bold uppercase tracking-widest transition-all text-center flex items-center justify-center gap-2"
-        >
-          Enviar Pedido para WhatsApp
-        </button>
+        <p id="cartPending" class="text-xs font-semibold text-stone-700"></p>
+        <p id="cartLotNotice" class="cart-lot-notice" hidden>Algumas quantidades salvas foram ajustadas aos lotes disponíveis. Confira antes de enviar.</p>
+        <button type="button" id="cartCheckout" onclick="checkoutToWhatsApp()" class="site-button primary w-full">Abrir orçamento no WhatsApp</button>
+        <p class="text-xs text-stone-600">Confira a mensagem antes de enviar.</p>
       </div>
 
     </div>
   </div>
 
-  <footer class="border-t border-brand-border bg-white mt-16 py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
-      <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-6">
-        <span class="font-bold text-stone-700">EMPÓRIO AVENIDA</span>
-        <span>Atendimento & Produção: +55 (64) 8447-1933</span>
-      </div>
-      <div>
-        Produção Gráfica Especializada & Papelaria Fina
-      </div>
-    </div>
-  </footer>
+  <footer class="site-footer"><div class="site-wrap">
+    <strong>Empório Avenida · Papelaria personalizada</strong>
+    <a href="https://wa.me/556484471933" target="_blank" rel="noopener noreferrer">Atendimento pelo WhatsApp</a>
+  </div></footer>
 
   <script>
     const WHATSAPP_PHONE = "556484471933";
 
     // 1. BASE DE DADOS OFICIAL COM TODAS AS 87 FOTOS REAIS DO DRIVE
+    const newCatalog = [
+  {
+    "nome": "Convite floral vertical",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "Flores azuis",
+        "ref": "009.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-009-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-009-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-009-01-capa.webp"
+      },
+      {
+        "nome": "Folhagem verde",
+        "ref": "036.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-036-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-036-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-036-01-capa.webp"
+      },
+      {
+        "nome": "Rosa intenso",
+        "ref": "043.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-043-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-043-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-043-01-capa.webp"
+      },
+      {
+        "nome": "Rosa e laranja",
+        "ref": "050.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-050-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-050-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-050-01-capa.webp"
+      },
+      {
+        "nome": "Rosa claro",
+        "ref": "071.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-071-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-071-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-071-01-capa.webp"
+      }
+    ],
+    "id": "modelo-009.1"
+  },
+  {
+    "nome": "Convite com flores do campo",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "006.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-006-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-006-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-006-01-capa.webp"
+      }
+    ],
+    "id": "modelo-006.1"
+  },
+  {
+    "nome": "Convite com igreja em aquarela",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "012.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-012-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-012-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-012-01-capa.webp"
+      }
+    ],
+    "id": "modelo-012.1"
+  },
+  {
+    "nome": "Convite floral com envelope e lacre verde",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "014.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-014-01.webp",
+          "imagens/modelos-revisados/pdf-014-02.webp",
+          "imagens/modelos-revisados/pdf-014-03.webp",
+          "imagens/modelos-revisados/pdf-014-04.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-014-01-capa.webp",
+          "imagens/modelos-revisados/pdf-014-02-capa.webp",
+          "imagens/modelos-revisados/pdf-014-03-capa.webp",
+          "imagens/modelos-revisados/pdf-014-04-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-014-01-capa.webp"
+      }
+    ],
+    "id": "modelo-014.1"
+  },
+  {
+    "nome": "Convite botânico de 10 × 14 cm com verso em monograma",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "017.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-017-01.webp",
+          "imagens/modelos-revisados/pdf-017-02.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-017-01-capa.webp",
+          "imagens/modelos-revisados/pdf-017-02-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-017-01-capa.webp"
+      }
+    ],
+    "id": "modelo-017.1"
+  },
+  {
+    "nome": "Convite de praia em aquarela",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "018.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-018-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-018-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-018-01-capa.webp"
+      }
+    ],
+    "id": "modelo-018.1"
+  },
+  {
+    "nome": "Convite digital com fotografia e folhagem",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "024.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-024-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-024-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-024-01-capa.webp"
+      }
+    ],
+    "id": "modelo-024.1"
+  },
+  {
+    "nome": "Convite horizontal com ilustração de capela",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "027.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-027-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-027-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-027-01-capa.webp"
+      }
+    ],
+    "id": "modelo-027.1"
+  },
+  {
+    "nome": "Convite floral com envelope e cartão de informações",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "030.2",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-030-02.webp",
+          "imagens/modelos-revisados/pdf-030-01.webp",
+          "imagens/modelos-revisados/pdf-030-03.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-030-02-capa.webp",
+          "imagens/modelos-revisados/pdf-030-01-capa.webp",
+          "imagens/modelos-revisados/pdf-030-03-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-030-02-capa.webp"
+      }
+    ],
+    "id": "modelo-030.2"
+  },
+  {
+    "nome": "Convite horizontal com flores azuis e verso",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "038.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-038-01.webp",
+          "imagens/modelos-revisados/pdf-038-02.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-038-01-capa.webp",
+          "imagens/modelos-revisados/pdf-038-02-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-038-01-capa.webp"
+      }
+    ],
+    "id": "modelo-038.1"
+  },
+  {
+    "nome": "Convite rústico com ilustração dos noivos",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "045.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-045-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-045-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-045-01-capa.webp"
+      }
+    ],
+    "id": "modelo-045.1"
+  },
+  {
+    "nome": "Convite clássico com flores creme e verso floral",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "046.2",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-046-02.webp",
+          "imagens/modelos-revisados/pdf-046-03.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-046-02-capa.webp",
+          "imagens/modelos-revisados/pdf-046-03-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-046-02-capa.webp"
+      }
+    ],
+    "id": "modelo-046.2"
+  },
+  {
+    "nome": "Convite para chá de noiva com moldura botânica",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "048.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-048-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-048-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-048-01-capa.webp"
+      }
+    ],
+    "id": "modelo-048.1"
+  },
+  {
+    "nome": "Convite fotográfico em tons quentes",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "053.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-053-01.webp",
+          "imagens/modelos-revisados/pdf-053-02.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-053-01-capa.webp",
+          "imagens/modelos-revisados/pdf-053-02-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-053-01-capa.webp"
+      }
+    ],
+    "id": "modelo-053.1"
+  },
+  {
+    "nome": "Convite aquarelado de 10 × 14 cm",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "057.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-057-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-057-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-057-01-capa.webp"
+      }
+    ],
+    "id": "modelo-057.1"
+  },
+  {
+    "nome": "Convite horizontal com casal ilustrado",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "061.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-061-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-061-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-061-01-capa.webp"
+      }
+    ],
+    "id": "modelo-061.1"
+  },
+  {
+    "nome": "Convite fotográfico com degradê escuro",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "075.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-075-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-075-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-075-01-capa.webp"
+      }
+    ],
+    "id": "modelo-075.1"
+  },
+  {
+    "nome": "Convite fotográfico em preto e branco",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "077.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-077-01.webp",
+          "imagens/modelos-revisados/pdf-077-02.webp",
+          "imagens/modelos-revisados/pdf-077-03.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-077-01-capa.webp",
+          "imagens/modelos-revisados/pdf-077-02-capa.webp",
+          "imagens/modelos-revisados/pdf-077-03-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-077-01-capa.webp"
+      }
+    ],
+    "id": "modelo-077.1"
+  },
+  {
+    "nome": "Convite clássico com monograma dourado",
+    "categoria": "Convites",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "C002.5",
+        "fotos": [
+          "imagens/modelos-revisados/cdr-002-05.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/cdr-002-05-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/cdr-002-05-capa.webp"
+      }
+    ],
+    "id": "modelo-C002.5"
+  },
+  {
+    "nome": "Save the Date horizontal floral azul",
+    "categoria": "Save the Date",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "039.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-039-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-039-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-039-01-capa.webp"
+      }
+    ],
+    "id": "modelo-039.1"
+  },
+  {
+    "nome": "Save the Date vertical com folhagem verde",
+    "categoria": "Save the Date",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "056.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-056-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-056-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-056-01-capa.webp"
+      }
+    ],
+    "id": "modelo-056.1"
+  },
+  {
+    "nome": "Manual quadrado de 7 páginas",
+    "categoria": "Manuais e padrinhos",
+    "variantes": [
+      {
+        "nome": "Verde e dourado",
+        "ref": "021.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-021-01.webp",
+          "imagens/modelos-revisados/pdf-021-03.webp",
+          "imagens/modelos-revisados/pdf-021-04.webp",
+          "imagens/modelos-revisados/pdf-021-05.webp",
+          "imagens/modelos-revisados/pdf-021-06.webp",
+          "imagens/modelos-revisados/pdf-021-07.webp",
+          "imagens/modelos-revisados/pdf-021-08.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-021-01-capa.webp",
+          "imagens/modelos-revisados/pdf-021-03-capa.webp",
+          "imagens/modelos-revisados/pdf-021-04-capa.webp",
+          "imagens/modelos-revisados/pdf-021-05-capa.webp",
+          "imagens/modelos-revisados/pdf-021-06-capa.webp",
+          "imagens/modelos-revisados/pdf-021-07-capa.webp",
+          "imagens/modelos-revisados/pdf-021-08-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-021-01-capa.webp"
+      },
+      {
+        "nome": "Creme e marrom",
+        "ref": "034.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-034-01.webp",
+          "imagens/modelos-revisados/pdf-034-02.webp",
+          "imagens/modelos-revisados/pdf-034-03.webp",
+          "imagens/modelos-revisados/pdf-034-04.webp",
+          "imagens/modelos-revisados/pdf-034-05.webp",
+          "imagens/modelos-revisados/pdf-034-06.webp",
+          "imagens/modelos-revisados/pdf-034-07.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-034-01-capa.webp",
+          "imagens/modelos-revisados/pdf-034-02-capa.webp",
+          "imagens/modelos-revisados/pdf-034-03-capa.webp",
+          "imagens/modelos-revisados/pdf-034-04-capa.webp",
+          "imagens/modelos-revisados/pdf-034-05-capa.webp",
+          "imagens/modelos-revisados/pdf-034-06-capa.webp",
+          "imagens/modelos-revisados/pdf-034-07-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-034-01-capa.webp"
+      }
+    ],
+    "id": "modelo-021.1"
+  },
+  {
+    "nome": "Manual quadrado com folhagens",
+    "categoria": "Manuais e padrinhos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "049.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-049-01.webp",
+          "imagens/modelos-revisados/pdf-049-02.webp",
+          "imagens/modelos-revisados/pdf-049-03.webp",
+          "imagens/modelos-revisados/pdf-049-04.webp",
+          "imagens/modelos-revisados/pdf-049-05.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-049-01-capa.webp",
+          "imagens/modelos-revisados/pdf-049-02-capa.webp",
+          "imagens/modelos-revisados/pdf-049-03-capa.webp",
+          "imagens/modelos-revisados/pdf-049-04-capa.webp",
+          "imagens/modelos-revisados/pdf-049-05-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-049-01-capa.webp"
+      }
+    ],
+    "id": "modelo-049.1"
+  },
+  {
+    "nome": "Manual quadrado lilás em aquarela",
+    "categoria": "Manuais e padrinhos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "054.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-054-01.webp",
+          "imagens/modelos-revisados/pdf-054-02.webp",
+          "imagens/modelos-revisados/pdf-054-03.webp",
+          "imagens/modelos-revisados/pdf-054-04.webp",
+          "imagens/modelos-revisados/pdf-054-05.webp",
+          "imagens/modelos-revisados/pdf-054-06.webp",
+          "imagens/modelos-revisados/pdf-054-07.webp",
+          "imagens/modelos-revisados/pdf-054-08.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-054-01-capa.webp",
+          "imagens/modelos-revisados/pdf-054-02-capa.webp",
+          "imagens/modelos-revisados/pdf-054-03-capa.webp",
+          "imagens/modelos-revisados/pdf-054-04-capa.webp",
+          "imagens/modelos-revisados/pdf-054-05-capa.webp",
+          "imagens/modelos-revisados/pdf-054-06-capa.webp",
+          "imagens/modelos-revisados/pdf-054-07-capa.webp",
+          "imagens/modelos-revisados/pdf-054-08-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-054-01-capa.webp"
+      }
+    ],
+    "id": "modelo-054.1"
+  },
+  {
+    "nome": "Manual quadrado com flores terracota",
+    "categoria": "Manuais e padrinhos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "035.2",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-035-02.webp",
+          "imagens/modelos-revisados/pdf-035-03.webp",
+          "imagens/modelos-revisados/pdf-035-04.webp",
+          "imagens/modelos-revisados/pdf-035-05.webp",
+          "imagens/modelos-revisados/pdf-035-06.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-035-02-capa.webp",
+          "imagens/modelos-revisados/pdf-035-03-capa.webp",
+          "imagens/modelos-revisados/pdf-035-04-capa.webp",
+          "imagens/modelos-revisados/pdf-035-05-capa.webp",
+          "imagens/modelos-revisados/pdf-035-06-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-035-02-capa.webp"
+      }
+    ],
+    "id": "modelo-035.2"
+  },
+  {
+    "nome": "Manual dobrável de padrinhos",
+    "categoria": "Manuais e padrinhos",
+    "variantes": [
+      {
+        "nome": "Verde eucalipto",
+        "ref": "028.2",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-028-02.webp",
+          "imagens/modelos-revisados/pdf-028-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-028-02-capa.webp",
+          "imagens/modelos-revisados/pdf-028-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-028-02-capa.webp"
+      },
+      {
+        "nome": "Rosa e vermelho",
+        "ref": "044.2",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-044-02.webp",
+          "imagens/modelos-revisados/pdf-044-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-044-02-capa.webp",
+          "imagens/modelos-revisados/pdf-044-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-044-02-capa.webp"
+      }
+    ],
+    "id": "modelo-028.2"
+  },
+  {
+    "nome": "Convite quadrado de madrinha com folhagem",
+    "categoria": "Manuais e padrinhos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "021.2",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-021-02.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-021-02-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-021-02-capa.webp"
+      }
+    ],
+    "id": "modelo-021.2"
+  },
+  {
+    "nome": "Convite para padrinhos com flores terracota",
+    "categoria": "Manuais e padrinhos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "035.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-035-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-035-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-035-01-capa.webp"
+      }
+    ],
+    "id": "modelo-035.1"
+  },
+  {
+    "nome": "Convite para padrinhos com folhagem delicada",
+    "categoria": "Manuais e padrinhos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "037.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-037-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-037-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-037-01-capa.webp"
+      }
+    ],
+    "id": "modelo-037.1"
+  },
+  {
+    "nome": "Convite horizontal para padrinhos com monograma dourado",
+    "categoria": "Manuais e padrinhos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "C002.1",
+        "fotos": [
+          "imagens/modelos-revisados/cdr-002-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/cdr-002-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/cdr-002-01-capa.webp"
+      }
+    ],
+    "id": "modelo-C002.1"
+  },
+  {
+    "nome": "Menu de drinques",
+    "categoria": "Menus e cardápios",
+    "variantes": [
+      {
+        "nome": "Azul em aquarela",
+        "ref": "003.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-003-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-003-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-003-01-capa.webp"
+      },
+      {
+        "nome": "Pêssego em aquarela",
+        "ref": "003.2",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-003-02.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-003-02-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-003-02-capa.webp"
+      }
+    ],
+    "id": "modelo-003.1"
+  },
+  {
+    "nome": "Menu de coquetéis retrô rosa",
+    "categoria": "Menus e cardápios",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "015.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-015-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-015-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-015-01-capa.webp"
+      }
+    ],
+    "id": "modelo-015.1"
+  },
+  {
+    "nome": "Menu floral vertical",
+    "categoria": "Menus e cardápios",
+    "variantes": [
+      {
+        "nome": "Rosa intenso",
+        "ref": "005.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-005-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-005-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-005-01-capa.webp"
+      },
+      {
+        "nome": "Verde folhagem",
+        "ref": "052.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-052-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-052-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-052-01-capa.webp"
+      },
+      {
+        "nome": "Rosa e verde",
+        "ref": "073.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-073-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-073-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-073-01-capa.webp"
+      }
+    ],
+    "id": "modelo-005.1"
+  },
+  {
+    "nome": "Menu em arco com flores terracota",
+    "categoria": "Menus e cardápios",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "025.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-025-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-025-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-025-01-capa.webp"
+      }
+    ],
+    "id": "modelo-025.1"
+  },
+  {
+    "nome": "Coleção de menus verticais",
+    "categoria": "Menus e cardápios",
+    "variantes": [
+      {
+        "nome": "Bege fotográfico",
+        "ref": "031.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-031-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-031-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-031-01-capa.webp"
+      },
+      {
+        "nome": "Branco botânico",
+        "ref": "031.2",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-031-02.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-031-02-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-031-02-capa.webp"
+      },
+      {
+        "nome": "Verde aquarela",
+        "ref": "031.4",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-031-04.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-031-04-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-031-04-capa.webp"
+      },
+      {
+        "nome": "Pêssego com capela",
+        "ref": "031.9",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-031-09.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-031-09-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-031-09-capa.webp"
+      },
+      {
+        "nome": "Azul com capela",
+        "ref": "031.11",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-031-11.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-031-11-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-031-11-capa.webp"
+      }
+    ],
+    "id": "modelo-031.1"
+  },
+  {
+    "nome": "Menu floral com casal ilustrado",
+    "categoria": "Menus e cardápios",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "058.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-058-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-058-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-058-01-capa.webp"
+      }
+    ],
+    "id": "modelo-058.1"
+  },
+  {
+    "nome": "Menu com cenário em aquarela",
+    "categoria": "Menus e cardápios",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "064.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-064-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-064-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-064-01-capa.webp"
+      }
+    ],
+    "id": "modelo-064.1"
+  },
+  {
+    "nome": "Menu com capela em tons de creme",
+    "categoria": "Menus e cardápios",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "065.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-065-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-065-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-065-01-capa.webp"
+      }
+    ],
+    "id": "modelo-065.1"
+  },
+  {
+    "nome": "Adesivo Hora da Gravata",
+    "categoria": "Tags e adesivos",
+    "variantes": [
+      {
+        "nome": "Azul",
+        "ref": "002.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-002-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-002-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-002-01-capa.webp"
+      },
+      {
+        "nome": "Marrom",
+        "ref": "020.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-020-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-020-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-020-01-capa.webp"
+      },
+      {
+        "nome": "Verde",
+        "ref": "074.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-074-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-074-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-074-01-capa.webp"
+      }
+    ],
+    "id": "modelo-002.1"
+  },
+  {
+    "nome": "Adesivo Eu Salvei a Lua de Mel",
+    "categoria": "Tags e adesivos",
+    "variantes": [
+      {
+        "nome": "Amarelo",
+        "ref": "004.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-004-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-004-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-004-01-capa.webp"
+      },
+      {
+        "nome": "Verde",
+        "ref": "032.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-032-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-032-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-032-01-capa.webp"
+      }
+    ],
+    "id": "modelo-004.1"
+  },
+  {
+    "nome": "Adesivo Mão de Vaca",
+    "categoria": "Tags e adesivos",
+    "variantes": [
+      {
+        "nome": "Laranja",
+        "ref": "007.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-007-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-007-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-007-01-capa.webp"
+      },
+      {
+        "nome": "Creme",
+        "ref": "029.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-029-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-029-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-029-01-capa.webp"
+      }
+    ],
+    "id": "modelo-007.1"
+  },
+  {
+    "nome": "Adesivo Esqueci a Carteira",
+    "categoria": "Tags e adesivos",
+    "variantes": [
+      {
+        "nome": "Amarelo",
+        "ref": "019.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-019-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-019-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-019-01-capa.webp"
+      },
+      {
+        "nome": "Marrom",
+        "ref": "026.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-026-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-026-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-026-01-capa.webp"
+      }
+    ],
+    "id": "modelo-019.1"
+  },
+  {
+    "nome": "Adesivo Tô Duro em fundo bege",
+    "categoria": "Tags e adesivos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "013.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-013-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-013-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-013-01-capa.webp"
+      }
+    ],
+    "id": "modelo-013.1"
+  },
+  {
+    "nome": "Adesivo Operação Lua de Mel",
+    "categoria": "Tags e adesivos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "010.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-010-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-010-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-010-01-capa.webp"
+      }
+    ],
+    "id": "modelo-010.1"
+  },
+  {
+    "nome": "Adesivo Já Abençoei os Noivos",
+    "categoria": "Tags e adesivos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "022.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-022-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-022-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-022-01-capa.webp"
+      }
+    ],
+    "id": "modelo-022.1"
+  },
+  {
+    "nome": "Etiqueta Vale Descanso",
+    "categoria": "Tags e adesivos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "033.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-033-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-033-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-033-01-capa.webp"
+      }
+    ],
+    "id": "modelo-033.1"
+  },
+  {
+    "nome": "Etiqueta Chuva de Arroz em preto e branco",
+    "categoria": "Tags e adesivos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "068.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-068-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-068-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-068-01-capa.webp"
+      }
+    ],
+    "id": "modelo-068.1"
+  },
+  {
+    "nome": "Par de capas de votos com capela em tons suaves",
+    "categoria": "Votos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "008.2",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-008-02.webp",
+          "imagens/modelos-revisados/pdf-008-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-008-02-capa.webp",
+          "imagens/modelos-revisados/pdf-008-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-008-02-capa.webp"
+      }
+    ],
+    "id": "modelo-008.2"
+  },
+  {
+    "nome": "Par de capas de votos com capela em terracota",
+    "categoria": "Votos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "027.3",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-027-03.webp",
+          "imagens/modelos-revisados/pdf-027-04.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-027-03-capa.webp",
+          "imagens/modelos-revisados/pdf-027-04-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-027-03-capa.webp"
+      }
+    ],
+    "id": "modelo-027.3"
+  },
+  {
+    "nome": "Caderno de votos botânico com páginas pautadas",
+    "categoria": "Votos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "055.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-055-01.webp",
+          "imagens/modelos-revisados/pdf-055-02.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-055-01-capa.webp",
+          "imagens/modelos-revisados/pdf-055-02-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-055-01-capa.webp"
+      }
+    ],
+    "id": "modelo-055.1"
+  },
+  {
+    "nome": "Capa de votos com flores creme",
+    "categoria": "Votos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "040.2",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-040-02.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-040-02-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-040-02-capa.webp"
+      }
+    ],
+    "id": "modelo-040.2"
+  },
+  {
+    "nome": "Capa de votos com folhagem verde",
+    "categoria": "Votos",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "067.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-067-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-067-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-067-01-capa.webp"
+      }
+    ],
+    "id": "modelo-067.1"
+  },
+  {
+    "nome": "Convite quadrado para daminha",
+    "categoria": "Pajem e daminha",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "078.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-078-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-078-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-078-01-capa.webp"
+      }
+    ],
+    "id": "modelo-078.1"
+  },
+  {
+    "nome": "Cartão para lágrimas de alegria com monograma dourado",
+    "categoria": "Lágrimas de alegria",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "027.2",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-027-02.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-027-02-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-027-02-capa.webp"
+      }
+    ],
+    "id": "modelo-027.2"
+  },
+  {
+    "nome": "Cartão para lágrimas de alegria em formato estreito",
+    "categoria": "Lágrimas de alegria",
+    "variantes": [
+      {
+        "nome": "",
+        "ref": "079.1",
+        "fotos": [
+          "imagens/modelos-revisados/pdf-079-01.webp"
+        ],
+        "miniaturas": [
+          "imagens/modelos-revisados/pdf-079-01-capa.webp"
+        ],
+        "capa": "imagens/modelos-revisados/pdf-079-01-capa.webp"
+      }
+    ],
+    "id": "modelo-079.1"
+  }
+];
+
     const catalogData = [
       {
         id: 1,
@@ -1317,213 +2613,50 @@
     }
 
     // 3. ESTADO
-    let selectedCategory = 'Todas';
-    let selectedPaper = 'TODOS';
-    let searchTerm = '';
     let cart = [];
     let modalItem = null;
     let modalQty = 1;
     let currentPhotoIdx = 0;
-    let lockMultiples = true;
     let currentZoomLevel = 1;
+    let productTrigger = null;
 
     document.addEventListener('DOMContentLoaded', () => {
-      renderSections();
+      setupCatalog();
+      setupZoomViewport();
       loadCart();
       updateCartDisplay();
-
-      document.addEventListener('click', (e) => {
-        const filterBtn = document.getElementById('filterDropdownBtn');
-        const filterMenu = document.getElementById('filterMenu');
-        if (!filterBtn.contains(e.target) && !filterMenu.contains(e.target)) {
-          filterMenu.classList.add('hidden');
-        }
-      });
-
-      // Teclado no Lightbox
-      document.addEventListener('keydown', (e) => {
+      document.addEventListener('keydown', event => {
         const lb = document.getElementById('lightboxModal');
-        if (!lb.classList.contains('hidden')) {
-          if (e.key === 'Escape') closeLightbox();
-          if (e.key === 'ArrowLeft') prevLightboxPhoto();
-          if (e.key === 'ArrowRight') nextLightboxPhoto();
+        const drawer = document.getElementById('cartDrawer');
+        const product = document.getElementById('productConfigModal');
+        const active = [lb, drawer, product].find(el => !el.classList.contains('hidden'));
+        if (!active) return;
+        if (event.key === 'Escape') {
+          if (active === lb) closeLightbox();
+          else if (active === drawer) toggleCart(false);
+          else closeProductModal();
+        }
+        if (active === lb && event.key === 'ArrowLeft') prevLightboxPhoto();
+        if (active === lb && event.key === 'ArrowRight') nextLightboxPhoto();
+        if (event.key === 'Tab') {
+          const controls = [...active.querySelectorAll('button, input, a[href], select, summary, textarea')].filter(el => !el.disabled && el.getClientRects().length);
+          const first = controls[0];
+          const last = controls.at(-1);
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last?.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first?.focus();
+          }
         }
       });
     });
 
-    // 4. RENDERIZAÇÃO DO CATÁLOGO
-    function renderSections() {
-      const container = document.getElementById('catalogSectionsContainer');
-      const emptyState = document.getElementById('emptyResults');
-
-      const filtered = catalogData.filter(p => {
-        const matchCat = selectedCategory === 'Todas' || p.categoria === selectedCategory;
-        const matchPaper = selectedPaper === 'TODOS' || p.papel.toLowerCase().includes(selectedPaper.toLowerCase());
-        const matchSearch = !searchTerm || 
-          p.nome.toLowerCase().includes(searchTerm.toLowerCase()) || 
-          p.descricao.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          p.formato.toLowerCase().includes(searchTerm.toLowerCase());
-        return matchCat && matchPaper && matchSearch;
-      });
-
-      if (filtered.length === 0) {
-        container.innerHTML = '';
-        emptyState.classList.remove('hidden');
-        return;
-      }
-
-      emptyState.classList.add('hidden');
-
-      const activeCats = categoryOrder.filter(catName => 
-        filtered.some(p => p.categoria === catName)
-      );
-
-      container.innerHTML = activeCats.map(catName => {
-        const items = filtered.filter(p => p.categoria === catName);
-
-        return `
-          <section class="space-y-6">
-            <div class="border-b border-brand-border pb-3 flex items-baseline justify-between">
-              <h2 class="font-serif text-2xl sm:text-3xl text-stone-900 tracking-tight font-bold">
-                ${catName}
-              </h2>
-              <span class="text-xs text-stone-500 font-medium tracking-wider">
-                ${items.length} ${items.length === 1 ? 'modelo' : 'modelos'}
-              </span>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              ${items.map(prod => `
-                <div class="bg-white rounded-lg border border-brand-border hover:border-stone-400 transition-all duration-200 overflow-hidden flex flex-col justify-between group">
-                  
-                  <div class="relative aspect-4/3 bg-stone-50 overflow-hidden cursor-pointer flex items-center justify-center" onclick="openProductModal(${prod.id})">
-                    <img 
-                      src="${prod.fotos[0]}" 
-                      alt="${prod.nome}" 
-                      class="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-                      loading="lazy"
-                    >
-                    <span class="absolute top-2.5 left-2.5 text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-white/90 text-stone-700 shadow-xs border border-stone-200">
-                      ${prod.papel.split(' ')[0]}
-                    </span>
-                    ${prod.fotos.length > 1 ? `
-                      <span class="absolute bottom-2.5 right-2.5 text-[9px] font-semibold px-2 py-0.5 rounded bg-stone-900/70 text-white shadow-xs">
-                        ${prod.fotos.length} fotos
-                      </span>
-                    ` : ''}
-                  </div>
-
-                  <div class="p-4 flex-1 flex flex-col justify-between space-y-4">
-                    <div>
-                      <h3 
-                        onclick="openProductModal(${prod.id})" 
-                        class="font-serif text-base font-bold text-stone-900 leading-snug group-hover:text-brand-blue transition-colors cursor-pointer"
-                      >
-                        ${prod.nome}
-                      </h3>
-                      <p class="text-xs text-stone-500 mt-1 line-clamp-2 leading-relaxed">
-                        ${prod.formato} • ${prod.inclusos}
-                      </p>
-                    </div>
-
-                    <div class="pt-3 border-t border-stone-100 flex items-end justify-between">
-                      <div>
-                        <span class="text-[9px] uppercase tracking-wider text-stone-600 block font-semibold">A partir de</span>
-                        <div class="flex items-baseline gap-1">
-                          <span class="text-base font-bold text-brand-blue">${formatBRL(prod.menorPreco)}</span>
-                          <span class="text-[10px] text-stone-400">/un</span>
-                        </div>
-                      </div>
-
-                      <button 
-                        onclick="openProductModal(${prod.id})" 
-                        class="px-3 py-1.5 rounded border border-stone-300 text-stone-700 hover:border-brand-blue hover:text-brand-blue text-xs font-semibold uppercase tracking-wider transition-colors"
-                      >
-                        Configurar
-                      </button>
-                    </div>
-                  </div>
-
-                </div>
-              `).join('')}
-            </div>
-          </section>
-        `;
-      }).join('');
-    }
-
     // 5. MODAL DO PRODUTO (GALERIA MERCADO LIVRE & SELEÇÃO DE MÚLTIPLOS)
     function openProductModal(id) {
-      const prod = catalogData.find(p => p.id === id);
-      if (!prod) return;
-      modalItem = prod;
-      currentPhotoIdx = 0;
-      lockMultiples = true;
-      modalQty = prod.loteOtimo;
-
-      document.getElementById('modalCategoryBadge').textContent = prod.categoria;
-      document.getElementById('modalProductName').textContent = prod.nome;
-      document.getElementById('modalProductDesc').textContent = prod.descricao;
-      document.getElementById('modalPaperTag').textContent = prod.papel;
-
-      document.getElementById('modalSpecPapel').textContent = prod.papel;
-      document.getElementById('modalSpecFormato').textContent = prod.formato;
-      document.getElementById('modalSpecInclusos').textContent = prod.inclusos;
-      document.getElementById('modalSpecMinOrder').textContent = `Múltiplos de ${prod.loteOtimo} un (${formatBRL(prod.menorPreco)}/un)`;
-      document.getElementById('modalMinNotice').textContent = prod.pedidoMinimo;
-
-      document.getElementById('lockMultiplesCheckbox').checked = true;
-      document.getElementById('lockMultiplesDesc').textContent = `Múltiplos de ${prod.loteOtimo} un (${formatBRL(prod.menorPreco)}/un)`;
-
-      setupMLGallery(prod);
-      updateBatchPills();
-
-      const input = document.getElementById('modalQtyInput');
-      input.value = modalQty;
-      input.min = prod.pedidoMinimo;
-
-      refreshModalCalculation();
-      document.getElementById('productConfigModal').classList.remove('hidden');
-    }
-
-    function toggleLockMultiples(checked) {
-      lockMultiples = checked;
-      if (lockMultiples && modalItem) {
-        modalQty = Math.max(modalItem.loteOtimo, Math.ceil(modalQty / modalItem.loteOtimo) * modalItem.loteOtimo);
-      }
-      document.getElementById('modalQtyInput').value = modalQty;
-      updateBatchPills();
-      refreshModalCalculation();
-    }
-
-    function updateBatchPills() {
-      if (!modalItem) return;
-      const step = modalItem.loteOtimo;
-      const pillsContainer = document.getElementById('modalQuickBatchPills');
-
-      if (lockMultiples) {
-        const multiples = [step, step * 2, step * 4, step * 10];
-        pillsContainer.innerHTML = multiples.map(val => `
-          <button 
-            type="button"
-            onclick="setModalQtyDirect(${val})" 
-            class="px-2.5 py-1 text-[11px] font-semibold border rounded transition-colors ${modalQty === val ? 'bg-brand-blue text-white border-brand-blue' : 'bg-stone-50 hover:bg-white text-stone-700 border-stone-200 hover:border-brand-blue'}"
-          >
-            ${val} un (${formatBRL(modalItem.menorPreco)}/un)
-          </button>
-        `).join('');
-      } else {
-        const singles = [modalItem.pedidoMinimo, 5, 10, 20, 50].filter(v => v >= modalItem.pedidoMinimo);
-        pillsContainer.innerHTML = singles.map(val => `
-          <button 
-            type="button"
-            onclick="setModalQtyDirect(${val})" 
-            class="px-2.5 py-1 text-[11px] font-semibold border rounded transition-colors ${modalQty === val ? 'bg-brand-blue text-white border-brand-blue' : 'bg-stone-50 hover:bg-white text-stone-700 border-stone-200 hover:border-brand-blue'}"
-          >
-            ${val} un
-          </button>
-        `).join('');
-      }
+      const product = originalById.get(id);
+      if (product) showProductPreview(product, false);
     }
 
     function setupMLGallery(product) {
@@ -1532,12 +2665,12 @@
 
       thumbsList.innerHTML = photos.map((photo, i) => `
         <button 
-          onmouseenter="selectMLPhoto(${i})" 
-          onclick="selectMLPhoto(${i})" 
+          type="button" aria-label="Imagem ${i + 1}"
+          onclick="selectMLPhoto(${i})"
           class="ml-thumb w-14 h-14 sm:w-16 sm:h-16 rounded border-2 overflow-hidden shrink-0 transition-all ${i === 0 ? 'thumb-active' : 'border-stone-200 hover:border-stone-400'}"
           data-index="${i}"
         >
-          <img src="${photo}" class="w-full h-full object-cover">
+          <img src="${product.miniaturas?.[i] || photo}" alt="" loading="lazy" class="w-full h-full object-contain">
         </button>
       `).join('');
 
@@ -1551,9 +2684,11 @@
       const counter = document.getElementById('mlPhotoCounter');
 
       mainPhoto.src = modalItem.fotos[index];
+      mainPhoto.alt = modalItem.nome + ' — imagem ' + (index + 1);
       counter.textContent = `${index + 1} / ${modalItem.fotos.length}`;
 
       document.querySelectorAll('.ml-thumb').forEach((thumb, i) => {
+        thumb.setAttribute('aria-pressed', String(i === index));
         if (i === index) {
           thumb.className = "ml-thumb w-14 h-14 sm:w-16 sm:h-16 rounded border-2 overflow-hidden shrink-0 transition-all thumb-active";
         } else {
@@ -1565,54 +2700,8 @@
     function closeProductModal() {
       document.getElementById('productConfigModal').classList.add('hidden');
       modalItem = null;
-    }
-
-    function setModalQtyDirect(val) {
-      if (!modalItem) return;
-      modalQty = Math.max(modalItem.pedidoMinimo, val);
-      document.getElementById('modalQtyInput').value = modalQty;
-      updateBatchPills();
-      refreshModalCalculation();
-    }
-
-    function changeModalQty(direction) {
-      if (!modalItem) return;
-      const step = lockMultiples ? modalItem.loteOtimo : 1;
-      let next = modalQty + (direction * step);
-
-      if (lockMultiples) {
-        if (next < modalItem.loteOtimo) next = modalItem.loteOtimo;
-      } else {
-        if (next < modalItem.pedidoMinimo) next = modalItem.pedidoMinimo;
-      }
-
-      modalQty = next;
-      document.getElementById('modalQtyInput').value = modalQty;
-      updateBatchPills();
-      refreshModalCalculation();
-    }
-
-    function onModalInputQty(val) {
-      if (!modalItem) return;
-      let parsed = parseInt(val) || modalItem.pedidoMinimo;
-      if (parsed < 1) parsed = 1;
-
-      if (lockMultiples) {
-        parsed = Math.ceil(parsed / modalItem.loteOtimo) * modalItem.loteOtimo;
-      }
-
-      modalQty = parsed;
-      updateBatchPills();
-      refreshModalCalculation();
-    }
-
-    // 6. CÁLCULO DIRETO COM VALOR TOTAL E UNITÁRIO (SEM O CAMPO DE DICA)
-    function refreshModalCalculation() {
-      if (!modalItem) return;
-      const calc = calcPrice(modalItem, modalQty);
-
-      document.getElementById('modalCalcPerUnit').textContent = `${formatBRL(calc.unitCost)} / un`;
-      document.getElementById('modalCalcTotal').textContent = formatBRL(calc.totalCost);
+      productTrigger?.focus();
+      syncPageScroll();
     }
 
     // 7. LIGHTBOX (VISUALIZADOR EM TELA CHEIA COM ZOOM)
@@ -1621,15 +2710,15 @@
       const lb = document.getElementById('lightboxModal');
       document.getElementById('lbProductName').textContent = modalItem.nome;
 
+      lb.classList.remove('hidden');
       setupLightboxThumbs();
       showLightboxPhoto(currentPhotoIdx);
-      resetZoom();
-      lb.classList.remove('hidden');
+      lb.querySelector('[title="Fechar (Esc)"]').focus();
     }
 
     function closeLightbox() {
       document.getElementById('lightboxModal').classList.add('hidden');
-      resetZoom();
+      document.querySelector('#productConfigModal button[onclick*="openLightbox"]').focus();
     }
 
     function setupLightboxThumbs() {
@@ -1638,10 +2727,10 @@
 
       container.innerHTML = photos.map((p, i) => `
         <button 
-          onclick="showLightboxPhoto(${i})"
+          type="button" aria-label="Ampliar imagem ${i + 1}" onclick="showLightboxPhoto(${i})"
           class="lb-thumb w-12 h-12 rounded border-2 overflow-hidden shrink-0 transition-all ${i === currentPhotoIdx ? 'border-brand-orange scale-105' : 'border-stone-700 opacity-60 hover:opacity-100'}"
         >
-          <img src="${p}" class="w-full h-full object-cover">
+          <img src="${modalItem.miniaturas?.[i] || p}" alt="" loading="lazy" class="w-full h-full object-contain">
         </button>
       `).join('');
     }
@@ -1653,6 +2742,7 @@
 
       const img = document.getElementById('lbMainImg');
       img.src = modalItem.fotos[index];
+      img.alt = modalItem.nome + ' — imagem ' + (index + 1);
       document.getElementById('lbCounter').textContent = `Foto ${index + 1} de ${modalItem.fotos.length}`;
 
       document.querySelectorAll('.lb-thumb').forEach((t, i) => {
@@ -1680,7 +2770,7 @@
     }
 
     function adjustZoom(delta) {
-      currentZoomLevel = Math.max(0.75, Math.min(3, currentZoomLevel + delta));
+      currentZoomLevel = Math.max(1, Math.min(4, currentZoomLevel + delta));
       applyZoom();
     }
 
@@ -1695,237 +2785,473 @@
     }
 
     function applyZoom() {
+      const viewport = document.getElementById('lbViewport');
+      const canvas = document.getElementById('lbCanvas');
       const img = document.getElementById('lbMainImg');
-      img.style.transform = `scale(${currentZoomLevel})`;
-      img.className = `zoom-canvas max-h-[82vh] max-w-[88vw] object-contain ${currentZoomLevel > 1 ? 'cursor-zoom-out' : 'cursor-zoom-in'}`;
+      document.getElementById('lbZoomReset').textContent = Math.round(currentZoomLevel * 100) + '%';
+      if (!img.naturalWidth || !viewport.clientWidth || !viewport.clientHeight) return;
+      const fit = Math.min(viewport.clientWidth / img.naturalWidth, viewport.clientHeight / img.naturalHeight);
+      const width = Math.round(img.naturalWidth * fit * currentZoomLevel);
+      const height = Math.round(img.naturalHeight * fit * currentZoomLevel);
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      img.style.width = width + 'px';
+      img.style.height = height + 'px';
+      img.style.cursor = currentZoomLevel > 1 ? 'grab' : 'zoom-in';
+      viewport.scrollLeft = Math.max(0, (width - viewport.clientWidth) / 2);
+      viewport.scrollTop = Math.max(0, (height - viewport.clientHeight) / 2);
     }
 
-    // 8. CARRINHO & WHATSAPP
+    function showProductPreview(product, isCollection) {
+      modalItem = product;
+      document.getElementById('modalCategoryBadge').textContent = product.categoria;
+      document.getElementById('modalProductName').textContent = product.nome;
+      document.getElementById('modalPaperTag').textContent = product.papel || '';
+      document.getElementById('modalPaperTag').hidden = isCollection;
+      setupItemOptions(product, isCollection);
+      setupMLGallery(product);
+      productTrigger = document.activeElement;
+      const dialog = document.getElementById('productConfigModal');
+      dialog.classList.remove('hidden');
+      dialog.querySelector('[aria-label="Fechar visualização"]').focus();
+      syncPageScroll();
+    }
+
+    function openCollectionProduct(product) {
+      const options = document.getElementById('modalArtOptions');
+      const label = document.getElementById('modalArtLabel');
+      options.replaceChildren();
+      document.getElementById('modalArtPicker').hidden = product.variantes.length < 2;
+      const buttons = [];
+
+      function choose(variant, index) {
+        if (modalItem.fotos !== variant.fotos) {
+          modalItem.fotos = variant.fotos;
+          modalItem.miniaturas = variant.miniaturas;
+          setupMLGallery(modalItem);
+        }
+        label.textContent = variant.nome;
+        for (const [buttonIndex, button] of buttons.entries()) {
+          button.setAttribute('aria-pressed', String(index === buttonIndex));
+        }
+        modalItem.selectedArt = variant;
+      }
+
+      if (product.variantes.length > 1) {
+        for (const [index, variant] of product.variantes.entries()) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'art-option flex w-24 flex-col items-center gap-1 rounded-lg border border-stone-200 bg-white p-1.5 text-center text-xs text-stone-700';
+          const image = document.createElement('img');
+          image.src = variant.capa;
+          image.alt = '';
+          image.className = 'h-16 w-full object-contain';
+          const name = document.createElement('span');
+          name.textContent = variant.nome;
+          button.append(image, name);
+          button.addEventListener('click', () => choose(variant, index));
+          buttons.push(button);
+          options.append(button);
+        }
+      }
+      product.fotos = product.variantes[0].fotos;
+      product.miniaturas = product.variantes[0].miniaturas;
+      showProductPreview(product, true);
+      choose(product.variantes[0], 0);
+    }
+
+    function setupZoomViewport() {
+      const viewport = document.getElementById('lbViewport');
+      const image = document.getElementById('lbMainImg');
+      let start;
+      let moved = false;
+      image.addEventListener('load', applyZoom);
+      window.addEventListener('resize', applyZoom);
+      viewport.addEventListener('pointerdown', event => {
+        if (event.pointerType !== 'mouse' || event.button !== 0) return;
+        moved = false;
+        if (currentZoomLevel <= 1) return;
+        start = { x: event.clientX, y: event.clientY, left: viewport.scrollLeft, top: viewport.scrollTop };
+        viewport.setPointerCapture(event.pointerId);
+      });
+      viewport.addEventListener('pointermove', event => {
+        if (!start) return;
+        const dx = event.clientX - start.x;
+        const dy = event.clientY - start.y;
+        if (Math.abs(dx) + Math.abs(dy) > 3) moved = true;
+        viewport.scrollLeft = start.left - dx;
+        viewport.scrollTop = start.top - dy;
+      });
+      viewport.addEventListener('lostpointercapture', () => { start = undefined; });
+      viewport.addEventListener('click', event => {
+        if (!moved && (event.target === image || event.target === viewport)) toggleQuickZoom();
+        moved = false;
+      });
+    }
+
+
+    const categoryNames = {
+      'Manuais dos Padrinhos & Convidados': 'Manuais e padrinhos',
+      'Convites de Casamento & Especiais': 'Convites',
+      'Menus & Cardápios de Mesa': 'Menus e cardápios',
+      'Lágrimas de Alegria': 'Lágrimas de alegria',
+      'Placas de Reservado': 'Placas de reservado',
+      'Votos dos Noivos': 'Votos',
+      'Tags & Lembrancinhas': 'Tags e adesivos',
+      'Pajem & Daminha': 'Pajem e daminha'
+    };
+    const categories = [
+      'Convites', 'Manuais e padrinhos', 'Menus e cardápios', 'Tags e adesivos', 'Save the Date',
+      'Votos', 'Lágrimas de alegria', 'Pajem e daminha', 'Placas de reservado', 'Ventarolas', 'Acessórios'
+    ];
+    const categoryOf = product => categoryNames[product.categoria] || product.categoria;
+    const originalCardNames = {
+      1: 'Manual perolado · 8 páginas',
+      2: 'Manual perolado · 9 páginas',
+      3: 'Manual em papel cartão · 10 páginas',
+      4: 'Manual dos padrinhos · folha única',
+      5: 'Manual dos convidados · folha única',
+      6: 'Convite com 3 dobras',
+      7: 'Convite perolado com envelope vegetal',
+      8: 'Convite em cartão com lacre',
+      9: 'Convite vegetal com lacre · modelo 1',
+      10: 'Convite em linho com envelope azul',
+      11: 'Convite luxo A3',
+      12: 'Convite perolado com envelope clássico',
+      13: 'Convite vegetal com lacre · modelo 2',
+      14: 'Convite quadrado perolado',
+      15: 'Menu triangular em cartão',
+      16: 'Menu triangular perolado',
+      17: 'Menu perolado sob medida',
+      18: 'Menu perolado · modelo 1',
+      19: 'Menu estreito frente e verso',
+      20: 'Menu perolado · modelo 2',
+      21: 'Lágrimas de alegria em cartão',
+      22: 'Lágrimas de alegria perolado',
+      23: 'Placa de reservado · 10 × 10 cm',
+      24: 'Placa de reservado · 20 × 23 cm',
+      25: 'Placa de reservado · 20 × 18 cm',
+      26: 'Votos em papel cartão A4',
+      27: 'Votos perolados · modelo 1',
+      28: 'Votos perolados · modelo 2',
+      29: 'Ventarola em cartão',
+      30: 'Ventarola perolada',
+      31: 'Mini ventarola perolada',
+      32: 'Tag perolada 5 cm · modelo 1',
+      33: 'Tag perolada 5 cm · modelo 2',
+      34: 'Tag retangular · modelo 1',
+      35: 'Tag em papel cartão · 5 cm',
+      36: 'Tag retangular · modelo 2',
+      37: 'Tag em formato de gravata',
+      38: 'Convite para pajem e daminha'
+    };
+    const normalize = value => value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[char]);
+    const originalById = new Map(catalogData.map(product => [product.id, product]));
+    const collectionById = new Map(newCatalog.map(product => [product.id, product]));
+    const artById = new Map(newCatalog.flatMap(product =>
+      product.variantes.map(art => ['arte:' + art.ref, { product, art }])
+    ));
+    const cartKey = 'emporio_avenida_cart';
+    const maxQuantity = 99999;
+    let currentCategory = '';
+    let lastCartTrigger = null;
+    let cartAdjusted = false;
+
+    function setupCatalog() {
+      const tabs = document.getElementById('categoryTabs');
+      const search = document.getElementById('catalogSearch');
+      const paper = document.getElementById('catalogPaper');
+      const line = document.getElementById('catalogLine');
+      const clear = document.getElementById('clearCatalogFilters');
+      const available = new Set([...catalogData, ...newCatalog].map(categoryOf));
+      tabs.innerHTML = ['', ...categories.filter(category => available.has(category))].map(category =>
+        `<button type="button" data-category="${escapeHtml(category)}" aria-pressed="${!category}">${category || 'Tudo'}</button>`
+      ).join('');
+      tabs.addEventListener('click', event => {
+        const button = event.target.closest('[data-category]');
+        if (!button) return;
+        currentCategory = button.dataset.category;
+        renderCatalog();
+      });
+      search.addEventListener('input', renderCatalog);
+      paper.addEventListener('change', renderCatalog);
+      line.addEventListener('change', renderCatalog);
+      clear.addEventListener('click', () => {
+        currentCategory = '';
+        search.value = '';
+        paper.value = '';
+        line.value = '';
+        renderCatalog();
+      });
+      document.querySelector('a[href="#novos-modelos"]').addEventListener('click', () => {
+        currentCategory = '';
+        search.value = '';
+        paper.value = '';
+        line.value = '';
+        renderCatalog();
+      });
+      document.getElementById('catalogo').addEventListener('click', event => {
+        const button = event.target.closest('[data-open-original], [data-open-art]');
+        if (!button) return;
+        if (button.hasAttribute('data-open-original')) openProductModal(Number(button.dataset.openOriginal));
+        else openCollectionProduct({ ...collectionById.get(button.dataset.openArt) });
+      });
+      document.getElementById('cartDrawerList').addEventListener('click', event => {
+        const button = event.target.closest('[data-cart-action]');
+        if (!button) return;
+        const index = Number(button.closest('[data-cart-index]').dataset.cartIndex);
+        const action = button.dataset.cartAction;
+        if (action === 'remove') cart.splice(index, 1);
+        else {
+          const item = cart[index];
+          const rules = cartProduct(item).rules;
+          item.quantity = normalizeQuantity(item.quantity + (action === 'increase' ? rules.lot : -rules.lot), rules);
+        }
+        commitCart();
+        const replacement = document.querySelector(`[data-cart-index="${index}"] [data-cart-action="${action}"]`);
+        const close = document.getElementById('closeCartButton');
+        (replacement && !replacement.disabled ? replacement : close).focus();
+      });
+      renderCatalog();
+    }
+
+    function renderCatalog() {
+      const query = normalize(document.getElementById('catalogSearch').value.trim());
+      const terms = query.split(/\s+/).filter(Boolean);
+      const paper = normalize(document.getElementById('catalogPaper').value);
+      const line = document.getElementById('catalogLine').value;
+      const matches = product => {
+        const category = categoryOf(product);
+        const text = normalize([
+          product.nome, originalCardNames[product.id], category, product.papel, product.formato, product.descricao,
+          ...(product.variantes || []).map(art => art.nome)
+        ].filter(Boolean).join(' '));
+        return (!currentCategory || category === currentCategory)
+          && (!paper || normalize(product.papel || '').includes(paper))
+          && terms.every(term => text.includes(term));
+      };
+      const original = line === 'new' ? [] : catalogData.filter(matches);
+      const added = line === 'original' ? [] : newCatalog.filter(matches);
+      for (const [id, products, isNew] of [['original', original, false], ['new', added, true]]) {
+        document.getElementById(id + 'Grid').innerHTML = products.map(product => catalogCard(product, isNew)).join('');
+        document.getElementById(isNew ? 'novos-modelos' : 'original-modelos').hidden = !products.length;
+      }
+      for (const button of document.querySelectorAll('#categoryTabs button')) {
+        button.setAttribute('aria-pressed', String(button.dataset.category === currentCategory));
+      }
+      const total = original.length + added.length;
+      document.getElementById('catalogCount').textContent = total + (total === 1 ? ' modelo encontrado' : ' modelos encontrados');
+      document.getElementById('emptyCatalog').hidden = total > 0;
+    }
+
+    function catalogCard(product, isNew) {
+      const variants = product.variantes || [];
+      const image = isNew ? variants[0].capa : product.fotos[0];
+      const details = variants.length > 1 ? variants.length + ' opções de arte' : '';
+      const action = isNew ? 'data-open-art' : 'data-open-original';
+      const price = isNew ? '<b>Sob consulta</b>' : `A partir de <b>${formatBRL(product.menorPreco)} <small>/ un.</small></b>`;
+      const title = escapeHtml(originalCardNames[product.id] || product.nome);
+      return `<article class="product-tile">
+        <button type="button" class="tile-image" ${action}="${product.id}" aria-label="Ver imagens de ${title}"><img src="${escapeHtml(image)}" alt="" loading="lazy" decoding="async"></button>
+        <div class="tile-body">
+          ${isNew ? `<p class="tile-category">${escapeHtml(categoryOf(product))}</p>` : ''}
+          <h4>${title}</h4>
+          ${details ? `<p class="tile-detail">${escapeHtml(details)}</p>` : ''}
+          <div class="tile-action"><span class="tile-price">${price}</span><button type="button" class="site-button" ${action}="${product.id}">${isNew ? 'Escolher arte' : 'Ver opções'}</button></div>
+        </div>
+      </article>`;
+    }
+
+    function quantityRules(product) {
+      const lot = product.loteOtimo || 1;
+      const minLots = Math.ceil((product.pedidoMinimo || lot) / lot);
+      const maxLots = Math.floor(maxQuantity / lot);
+      return { lot, minLots, maxLots };
+    }
+
+    function normalizeQuantity(units, { lot, minLots, maxLots }) {
+      return Math.max(minLots, Math.min(maxLots, Math.ceil(units / lot))) * lot;
+    }
+
+    function setupItemOptions(product, isCollection) {
+      const rules = quantityRules(product);
+      const input = document.getElementById('modalQtyInput');
+      input.min = rules.minLots;
+      input.max = rules.maxLots;
+      input.value = rules.minLots;
+      document.getElementById('modalQtyLabel').textContent = rules.lot > 1 ? 'Quantidade de lotes' : 'Quantidade';
+      document.getElementById('modalLotHelp').textContent = rules.lot > 1
+        ? 'Cada lote tem ' + rules.lot + ' unidades.' : 'Em unidades.';
+      document.getElementById('modalArtPicker').hidden = !isCollection || product.variantes.length < 2;
+      document.getElementById('modalSpecs').hidden = isCollection;
+      const description = document.getElementById('modalProductDesc');
+      description.hidden = isCollection || !product.descricao;
+      description.textContent = product.descricao || '';
+      document.getElementById('modalSpecPapel').textContent = product.papel || '';
+      document.getElementById('modalSpecFormato').textContent = product.formato || '';
+      document.getElementById('modalSpecInclusos').textContent = product.inclusos || '';
+      document.getElementById('modalPriceLabel').textContent = isCollection ? 'Valor' : 'Subtotal estimado';
+      refreshItemQuantity();
+    }
+
+    function readItemLots(input, rules) {
+      const lots = Math.ceil(input.valueAsNumber || rules.minLots);
+      return Math.max(rules.minLots, Math.min(rules.maxLots, lots));
+    }
+
+    function changeItemLots(delta) {
+      const rules = quantityRules(modalItem);
+      const input = document.getElementById('modalQtyInput');
+      input.value = Math.max(rules.minLots, Math.min(rules.maxLots, readItemLots(input, rules) + delta));
+      refreshItemQuantity();
+    }
+
+    function refreshItemQuantity() {
+      const rules = quantityRules(modalItem);
+      const input = document.getElementById('modalQtyInput');
+      const lots = readItemLots(input, rules);
+      modalQty = lots * rules.lot;
+      document.getElementById('modalQtyMinus').disabled = lots === rules.minLots;
+      document.getElementById('modalQtyPlus').disabled = lots === rules.maxLots;
+      document.getElementById('modalUnits').textContent = rules.lot > 1 ? modalQty + ' un. no pedido' : '';
+      const calc = originalById.has(modalItem.id) ? calcPrice(modalItem, modalQty) : null;
+      document.getElementById('modalCalcTotal').textContent = calc ? formatBRL(calc.totalCost) : 'Sob consulta';
+      document.getElementById('modalCalcPerUnit').textContent = calc ? formatBRL(calc.unitCost) + ' / un.' : '';
+    }
+
+    function cartProduct(item) {
+      const original = originalById.get(item.id);
+      if (original) return { product: original, rules: quantityRules(original), image: original.fotos[0] };
+      const entry = artById.get(item.id);
+      if (entry) return { ...entry, rules: quantityRules(entry.product), image: entry.art.capa };
+      return null;
+    }
+
     function confirmAddToCartFromModal() {
       if (!modalItem) return;
-      addToCart(modalItem.id, modalQty);
+      const isNew = Boolean(modalItem.selectedArt);
+      const id = isNew ? 'arte:' + modalItem.selectedArt.ref : modalItem.id;
+      const info = cartProduct({ id });
+      if (!info) return;
+      changeItemLots(0);
+      const quantity = modalQty;
+      const item = cart.find(row => row.id === id);
+      if (item) item.quantity = normalizeQuantity(item.quantity + quantity, info.rules);
+      else cart.push({ id, quantity });
+      commitCart();
       closeProductModal();
       toggleCart(true);
     }
 
-    function addToCart(productId, quantity) {
-      const prod = catalogData.find(p => p.id === productId);
-      if (!prod) return;
-
-      const idx = cart.findIndex(c => c.id === productId);
-      if (idx > -1) {
-        cart[idx].quantity += quantity;
-      } else {
-        cart.push({
-          id: prod.id,
-          nome: prod.nome,
-          categoria: prod.categoria,
-          papel: prod.papel,
-          formato: prod.formato,
-          quantity: quantity
-        });
-      }
-      saveCart();
+    function commitCart() {
+      try { localStorage.setItem(cartKey, JSON.stringify(cart)); } catch (error) {}
       updateCartDisplay();
-    }
-
-    function updateCartItemQty(id, newQty) {
-      const idx = cart.findIndex(c => c.id === id);
-      if (idx === -1) return;
-
-      if (newQty <= 0) {
-        cart.splice(idx, 1);
-      } else {
-        cart[idx].quantity = newQty;
-      }
-      saveCart();
-      updateCartDisplay();
-    }
-
-    function removeCartItem(id) {
-      cart = cart.filter(c => c.id !== id);
-      saveCart();
-      updateCartDisplay();
-    }
-
-    function updateCartDisplay() {
-      const badge = document.getElementById('cartCountBadge');
-      const drawerCount = document.getElementById('drawerItemsCountText');
-      const list = document.getElementById('cartDrawerList');
-      const grandTotalEl = document.getElementById('cartDrawerGrandTotal');
-
-      const totalItems = cart.reduce((acc, c) => acc + c.quantity, 0);
-      badge.textContent = totalItems;
-      drawerCount.textContent = `${cart.length} modelo(s) adicionado(s)`;
-
-      if (cart.length === 0) {
-        list.innerHTML = `
-          <div class="py-16 text-center text-stone-400">
-            <p class="font-serif text-lg text-stone-600">Seu pedido está vazio</p>
-            <p class="text-xs text-stone-400 mt-1">Navegue pelas categorias e selecione seus itens.</p>
-          </div>
-        `;
-        grandTotalEl.textContent = formatBRL(0);
-        return;
-      }
-
-      let grandTotal = 0;
-
-      list.innerHTML = cart.map(item => {
-        const prod = catalogData.find(p => p.id === item.id);
-        const calc = calcPrice(prod, item.quantity);
-        grandTotal += calc.totalCost;
-
-        return `
-          <div class="p-3.5 bg-stone-50 border border-brand-border rounded-lg space-y-2">
-            <div class="flex justify-between items-start gap-2">
-              <div>
-                <span class="text-[9px] uppercase tracking-wider font-bold text-brand-orange">${prod.categoria}</span>
-                <h4 class="text-xs font-bold text-stone-900 leading-snug">${prod.nome}</h4>
-                <span class="text-[10px] text-stone-500">${prod.papel} • ${formatBRL(calc.unitCost)}/un</span>
-              </div>
-              <button onclick="removeCartItem(${prod.id})" class="text-stone-400 hover:text-stone-700 text-xs p-1" title="Remover item">
-                ×
-              </button>
-            </div>
-
-            <div class="flex items-center justify-between pt-1">
-              <div class="inline-flex items-center border border-stone-300 rounded bg-white text-xs">
-                <button onclick="updateCartItemQty(${prod.id}, ${item.quantity - 1})" class="px-2 py-0.5 text-stone-600 hover:bg-stone-100 font-bold">-</button>
-                <span class="px-2.5 py-0.5 font-bold text-stone-800">${item.quantity}</span>
-                <button onclick="updateCartItemQty(${prod.id}, ${item.quantity + 1})" class="px-2 py-0.5 text-stone-600 hover:bg-stone-100 font-bold">+</button>
-              </div>
-
-              <span class="text-xs font-bold font-serif text-brand-blue">${formatBRL(calc.totalCost)}</span>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      grandTotalEl.textContent = formatBRL(grandTotal);
-    }
-
-    function toggleCart(show) {
-      document.getElementById('cartDrawer').classList.toggle('hidden', !show);
-    }
-
-    function toggleFilterMenu() {
-      document.getElementById('filterMenu').classList.toggle('hidden');
-    }
-
-    function selectCategory(cat) {
-      selectedCategory = cat;
-      document.getElementById('filterMenu').classList.add('hidden');
-      updateFilterButtonsUI();
-      renderSections();
-    }
-
-    function selectPaper(paper) {
-      selectedPaper = paper;
-      document.getElementById('filterMenu').classList.add('hidden');
-      updateFilterButtonsUI();
-      renderSections();
-    }
-
-    function handleSearch(val) {
-      searchTerm = val.trim();
-      renderSections();
-    }
-
-    function updateFilterButtonsUI() {
-      const label = document.getElementById('activeFilterName');
-      const pillContainer = document.getElementById('filterPillContainer');
-      const activePill = document.getElementById('activeFilterPill');
-
-      let activeName = "Filtros";
-      if (selectedCategory !== 'Todas') activeName = selectedCategory.split(' ')[0];
-      if (selectedPaper !== 'TODOS') activeName += ` (${selectedPaper})`;
-      label.textContent = activeName;
-
-      document.querySelectorAll('.filter-opt').forEach(btn => {
-        if (btn.getAttribute('data-val') === selectedCategory) {
-          btn.className = "filter-opt w-full text-left px-2.5 py-1.5 rounded bg-stone-100 text-brand-blue font-bold flex justify-between items-center";
-        } else {
-          btn.className = "filter-opt w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-100 text-stone-600";
-        }
-      });
-
-      document.querySelectorAll('.paper-opt').forEach(btn => {
-        if (btn.getAttribute('data-paper') === selectedPaper) {
-          btn.className = "paper-opt text-left px-2 py-1 rounded bg-stone-100 font-bold text-brand-blue";
-        } else {
-          btn.className = "paper-opt text-left px-2 py-1 rounded hover:bg-stone-100 text-stone-600";
-        }
-      });
-
-      if (selectedCategory !== 'Todas' || selectedPaper !== 'TODOS') {
-        pillContainer.classList.remove('hidden');
-        pillContainer.classList.add('flex');
-        let text = [];
-        if (selectedCategory !== 'Todas') text.push(selectedCategory);
-        if (selectedPaper !== 'TODOS') text.push(`Papel: ${selectedPaper}`);
-        activePill.textContent = text.join(' • ');
-      } else {
-        pillContainer.classList.add('hidden');
-        pillContainer.classList.remove('flex');
-      }
-    }
-
-    function resetFilters() {
-      selectedCategory = 'Todas';
-      selectedPaper = 'TODOS';
-      searchTerm = '';
-      document.getElementById('searchInput').value = '';
-      document.getElementById('filterMenu').classList.add('hidden');
-      updateFilterButtonsUI();
-      renderSections();
-    }
-
-    function checkoutToWhatsApp() {
-      if (cart.length === 0) {
-        alert("Adicione pelo menos um item para solicitar o pedido.");
-        return;
-      }
-
-      let msg = "*ORÇAMENTO DE CONVITES - EMPÓRIO AVENIDA*\n";
-      msg += "Olá, gostaria de fechar o seguinte pedido de papelaria:\n\n";
-
-      let total = 0;
-
-      cart.forEach((c, index) => {
-        const prod = catalogData.find(p => p.id === c.id);
-        const calc = calcPrice(prod, c.quantity);
-        total += calc.totalCost;
-
-        msg += `${index + 1}. *${prod.nome}*\n`;
-        msg += `   • Quantidade: ${c.quantity} unidades\n`;
-        msg += `   • Papel: ${prod.papel}\n`;
-        msg += `   • Dimensão: ${prod.formato}\n`;
-        msg += `   • Custo Unitário: ${formatBRL(calc.unitCost)}\n`;
-        msg += `   • Subtotal Item: ${formatBRL(calc.totalCost)}\n\n`;
-      });
-
-      msg += "--------------------------------------\n";
-      msg += `*VALOR TOTAL ESTIMADO: ${formatBRL(total)}*\n`;
-      msg += "--------------------------------------\n";
-      msg += "Como procedemos para envio dos dados e aprovação do layout?";
-
-      const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`;
-      window.open(url, '_blank');
-    }
-
-    function saveCart() {
-      try {
-        localStorage.setItem('emporio_avenida_cart', JSON.stringify(cart));
-      } catch (e) {}
     }
 
     function loadCart() {
       try {
-        const saved = localStorage.getItem('emporio_avenida_cart');
-        if (saved) cart = JSON.parse(saved);
-      } catch (e) { cart = []; }
+        const saved = JSON.parse(localStorage.getItem(cartKey));
+        if (!Array.isArray(saved)) return;
+        const rows = new Map();
+        for (const item of saved) {
+          const info = item && cartProduct(item);
+          if (!info || !Number.isFinite(Number(item.quantity)) || Number(item.quantity) <= 0) continue;
+          const units = (rows.get(item.id) || 0) + Number(item.quantity);
+          const quantity = normalizeQuantity(units, info.rules);
+          if (quantity !== units) cartAdjusted = true;
+          rows.set(item.id, quantity);
+        }
+        cart = [...rows].map(([id, quantity]) => ({ id, quantity }));
+      } catch (error) { cart = []; }
     }
+
+    function updateCartDisplay() {
+      document.getElementById('cartCountBadge').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById('drawerItemsCountText').textContent = cart.length + (cart.length === 1 ? ' item no pedido' : ' itens no pedido');
+      let subtotal = 0;
+      let priced = 0;
+      let pending = 0;
+      const rows = cart.map((item, index) => {
+        const { product, art, rules, image } = cartProduct(item);
+        const calc = art ? null : calcPrice(product, item.quantity);
+        if (calc) {
+          subtotal += calc.totalCost;
+          priced++;
+        } else pending++;
+        const details = art ? (art.nome || 'Arte selecionada') + ' · Ref. ' + art.ref
+          : (rules.lot > 1 ? 'Lote de ' + rules.lot + ' un. · ' : '') + formatBRL(calc.unitCost) + '/un.';
+        const title = originalCardNames[product.id] || product.nome;
+        return `<article class="cart-product" data-cart-index="${index}">
+          <img src="${escapeHtml(image)}" alt="" loading="lazy">
+          <div><h4>${escapeHtml(title)}</h4><p>${escapeHtml(details)}</p></div>
+          <button type="button" class="cart-remove" data-cart-action="remove" aria-label="Remover item">×</button>
+          <div class="quantity-control">
+            <button type="button" data-cart-action="decrease" aria-label="Diminuir quantidade" ${item.quantity <= rules.minLots * rules.lot ? 'disabled' : ''}>−</button>
+            <output aria-label="Quantidade">${item.quantity}</output>
+            <button type="button" data-cart-action="increase" aria-label="Aumentar quantidade" ${item.quantity >= rules.maxLots * rules.lot ? 'disabled' : ''}>+</button>
+          </div>
+          <span class="cart-price">${calc ? formatBRL(calc.totalCost) : 'Sob consulta'}</span>
+        </article>`;
+      });
+      document.getElementById('cartDrawerList').innerHTML = rows.length ? rows.join('') :
+        '<div class="py-12 text-center"><p class="font-serif text-3xl">Seu carrinho está vazio</p><p class="mt-2 text-sm">Escolha uma arte ou configure um modelo para começar.</p></div>';
+      document.getElementById('cartSubtotalRow').hidden = priced === 0;
+      document.getElementById('cartDrawerGrandTotal').textContent = formatBRL(subtotal);
+      document.getElementById('cartPending').textContent = pending ? pending + (pending === 1 ? ' item com valor a consultar.' : ' itens com valor a consultar.') : '';
+      document.getElementById('cartCheckout').disabled = !cart.length;
+      document.getElementById('cartEventDetails').hidden = !cart.length;
+      document.getElementById('cartLotNotice').hidden = !cartAdjusted || !cart.length;
+    }
+
+    function toggleCart(show) {
+      const drawer = document.getElementById('cartDrawer');
+      if (show && drawer.classList.contains('hidden')) lastCartTrigger = document.activeElement;
+      drawer.classList.toggle('hidden', !show);
+      if (show) document.getElementById('closeCartButton').focus();
+      else (lastCartTrigger?.isConnected && lastCartTrigger !== document.body ? lastCartTrigger : document.querySelector('.cart-trigger')).focus();
+      syncPageScroll();
+    }
+
+    function syncPageScroll() {
+      const active = ['cartDrawer', 'productConfigModal', 'lightboxModal'].some(id =>
+        !document.getElementById(id).classList.contains('hidden')
+      );
+      document.body.style.overflow = active ? 'hidden' : '';
+    }
+
+    function checkoutToWhatsApp() {
+      if (!cart.length) return;
+      let subtotal = 0;
+      let priced = 0;
+      const eventDate = document.getElementById('cartEventDate').value;
+      const date = eventDate ? eventDate.split('-').reverse().join('/') : '';
+      const city = document.getElementById('cartEventCity').value.trim();
+      const note = document.getElementById('cartEventNote').value.trim();
+      const event = [date && 'Data do casamento: ' + date, city && 'Cidade: ' + city, note && 'Observações: ' + note].filter(Boolean);
+      const items = cart.map((item, index) => {
+        const { product, art, rules } = cartProduct(item);
+        const lines = [`${index + 1}. *${product.nome}*`, `   • Quantidade: ${item.quantity} un.`];
+        if (rules.lot > 1) lines.push(`   • Lotes: ${item.quantity / rules.lot} × ${rules.lot} un.`);
+        if (art) lines.push(`   • Arte: ${art.nome || 'Modelo selecionado'} (ref. ${art.ref})`, '   • Valor: sob consulta');
+        else {
+          const calc = calcPrice(product, item.quantity);
+          subtotal += calc.totalCost;
+          priced++;
+          lines.push(`   • Referência: EA-${String(product.id).padStart(3, '0')}`, `   • Papel: ${product.papel}`, `   • Dimensões: ${product.formato}`,
+            `   • Unitário: ${formatBRL(calc.unitCost)}`, `   • Subtotal: ${formatBRL(calc.totalCost)}`);
+        }
+        return lines.join('\n');
+      });
+      const total = priced ? '\n\n*Subtotal dos itens com preço: ' + formatBRL(subtotal) + '*' : '';
+      const message = '*PEDIDO DE ORÇAMENTO | EMPÓRIO AVENIDA*\n\n'
+        + (event.length ? event.join('\n') + '\n\n' : '')
+        + items.join('\n\n') + total + '\n\nComo seguimos com a personalização?';
+      window.open('https://wa.me/' + WHATSAPP_PHONE + '?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
+    }
+
   </script>
 
 </body>
