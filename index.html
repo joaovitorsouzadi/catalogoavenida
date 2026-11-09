@@ -44,6 +44,9 @@
       border-color: #3252A2 !important;
       box-shadow: 0 0 0 1.5px #3252A2;
     }
+    .zoom-canvas {
+      transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
   </style>
 </head>
 <body class="bg-brand-stone text-stone-800 font-sans antialiased selection:bg-brand-orange selection:text-white min-h-screen flex flex-col justify-between">
@@ -52,7 +55,6 @@
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-brand-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
       
-      <!-- Logotipo -->
       <a href="#" class="flex flex-col group py-1">
         <span class="font-logo font-bold tracking-[0.28em] text-[13px] sm:text-[15px] text-brand-orange leading-none pl-0.5">
           EMPÓRIO
@@ -66,7 +68,6 @@
         Papelaria Artesanal & Convites de Casamento
       </div>
 
-      <!-- Carrinho -->
       <button 
         onclick="toggleCart(true)" 
         class="flex items-center gap-2.5 px-4 py-2 rounded-full border border-stone-300 hover:border-brand-blue text-stone-700 hover:text-brand-blue bg-white transition-all text-xs font-semibold tracking-wider uppercase"
@@ -77,7 +78,7 @@
     </div>
   </header>
 
-  <!-- Barra de Busca & Filtros -->
+  <!-- Busca e Filtros -->
   <section class="border-b border-brand-border bg-white py-4 sticky top-20 z-30 shadow-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center gap-3">
@@ -95,7 +96,6 @@
           </svg>
         </div>
 
-        <!-- Botão Único de Filtros -->
         <div class="relative">
           <button 
             id="filterDropdownBtn" 
@@ -111,7 +111,6 @@
             </svg>
           </button>
 
-          <!-- Menu Dropdown -->
           <div 
             id="filterMenu" 
             class="hidden absolute right-0 mt-2 w-72 bg-white border border-stone-200 rounded-xl shadow-xl p-4 z-50 text-xs space-y-4"
@@ -177,10 +176,11 @@
     </div>
   </main>
 
-  <!-- Modal Fino: Galeria Mercado Livre + Especificações Resumidas -->
+  <!-- Modal Fino do Produto (Galeria Mercado Livre + Configuração Limpa) -->
   <div id="productConfigModal" class="fixed inset-0 z-50 hidden bg-stone-900/50 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
     <div class="bg-white w-full max-w-4xl rounded-xl shadow-2xl border border-stone-200 overflow-hidden my-6 max-h-[92vh] flex flex-col">
       
+      <!-- Cabeçalho -->
       <div class="px-6 py-3.5 border-b border-stone-100 flex items-center justify-between bg-stone-50/50">
         <div>
           <span id="modalCategoryBadge" class="text-[10px] font-bold uppercase tracking-widest text-brand-orange">Categoria</span>
@@ -195,17 +195,30 @@
 
       <div class="p-4 sm:p-6 overflow-y-auto flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- Galeria Mercado Livre -->
+        <!-- Galeria Mercado Livre com Acesso ao Zoom da Imagem Inteira -->
         <div class="lg:col-span-6 flex flex-col-reverse sm:flex-row gap-3">
           <div id="mlThumbsList" class="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto sm:max-h-[400px] max-w-full sm:w-20 shrink-0 custom-scroll pb-1 sm:pb-0"></div>
 
-          <div class="relative flex-1 bg-stone-50 rounded-lg border border-stone-200 overflow-hidden flex items-center justify-center min-h-[300px] sm:min-h-[400px]">
+          <div class="relative flex-1 bg-stone-50 rounded-lg border border-stone-200 overflow-hidden flex items-center justify-center min-h-[300px] sm:min-h-[400px] group cursor-zoom-in" onclick="openLightbox()">
             <img 
               id="mlMainPhoto" 
               src="" 
               alt="Visualização" 
-              class="w-full h-full object-cover sm:object-contain transition-opacity duration-200"
+              class="w-full h-full object-cover sm:object-contain transition-transform duration-300 group-hover:scale-105"
             >
+            
+            <!-- Botão de Ver Imagem Inteira -->
+            <button 
+              type="button"
+              onclick="event.stopPropagation(); openLightbox();" 
+              class="absolute top-2.5 right-2.5 bg-white/90 hover:bg-white text-stone-700 hover:text-brand-blue text-[11px] font-semibold px-2.5 py-1 rounded shadow-sm border border-stone-200 flex items-center gap-1.5 transition-all"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/>
+              </svg>
+              <span>Ver inteira</span>
+            </button>
+
             <span id="mlPhotoCounter" class="absolute bottom-2.5 right-2.5 bg-stone-900/75 text-white text-[10px] font-medium px-2 py-0.5 rounded backdrop-blur-xs">
               1 / 1
             </span>
@@ -215,8 +228,9 @@
           </div>
         </div>
 
-        <!-- Especificações e Pedido -->
+        <!-- Especificações e Configuração de Lote -->
         <div class="lg:col-span-6 flex flex-col justify-between space-y-4">
+          
           <div class="space-y-3">
             <p id="modalProductDesc" class="text-xs sm:text-sm text-stone-600 leading-relaxed"></p>
 
@@ -240,48 +254,68 @@
                   <span id="modalSpecInclusos" class="font-semibold text-stone-800 text-xs">-</span>
                 </div>
                 <div>
-                  <span class="text-stone-400 block text-[10px] uppercase font-semibold">Tiragem Mínima</span>
+                  <span class="text-stone-400 block text-[10px] uppercase font-semibold">Lote Econômico</span>
                   <span id="modalSpecMinOrder" class="font-semibold text-stone-800 text-xs">-</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Quantidade e Dica da Melhor Quantidade -->
-          <div class="border border-stone-200 rounded-lg p-4 bg-white space-y-3">
+          <!-- Seleção de Quantidade com Opção de Múltiplos Exclusivos -->
+          <div class="border border-stone-200 rounded-lg p-4 bg-white space-y-3.5">
+            
             <div class="flex items-center justify-between">
-              <label class="text-xs font-bold uppercase tracking-wider text-stone-700">Quantidade Desejada</label>
-              <span class="text-[11px] text-stone-500">Mínimo: <b id="modalMinNotice">1</b> unidades</span>
+              <label class="text-xs font-bold uppercase tracking-wider text-stone-700">Quantidade</label>
+              <span class="text-[11px] text-stone-500">Mínimo: <b id="modalMinNotice">1</b> un</span>
             </div>
 
-            <div class="flex items-center gap-3 flex-wrap">
-              <div class="inline-flex items-center border border-stone-300 rounded bg-stone-50">
-                <button onclick="changeModalQty(-1)" class="px-3.5 py-1.5 text-stone-600 hover:text-stone-900 font-bold hover:bg-stone-200 transition-colors">-</button>
-                <input 
-                  type="number" 
-                  id="modalQtyInput" 
-                  value="1" 
-                  min="1"
-                  class="w-14 text-center font-bold text-xs sm:text-sm bg-transparent focus:outline-none"
-                  oninput="onModalInputQty(this.value)"
-                >
-                <button onclick="changeModalQty(1)" class="px-3.5 py-1.5 text-stone-600 hover:text-stone-900 font-bold hover:bg-stone-200 transition-colors">+</button>
+            <!-- Opção de Bloqueio em Múltiplos (Menor Preço por Unidade) -->
+            <label class="flex items-center gap-2 p-2 rounded bg-stone-50 border border-stone-200 cursor-pointer text-xs text-stone-700 select-none">
+              <input 
+                type="checkbox" 
+                id="lockMultiplesCheckbox" 
+                checked 
+                onchange="toggleLockMultiples(this.checked)"
+                class="w-4 h-4 text-brand-blue rounded border-stone-300 focus:ring-0"
+              >
+              <div class="flex-1">
+                <span class="font-bold text-stone-900 block leading-tight">Escolher apenas em múltiplos do lote econômico</span>
+                <span class="text-[10px] text-stone-500" id="lockMultiplesDesc">Garante o menor valor por unidade</span>
               </div>
+            </label>
 
-              <div id="modalQuickBatchPills" class="flex items-center gap-1.5 flex-wrap"></div>
+            <!-- Stepper e Pílulas de Múltiplos -->
+            <div class="space-y-2">
+              <div class="flex items-center gap-3">
+                <div class="inline-flex items-center border border-stone-300 rounded bg-stone-50">
+                  <button onclick="changeModalQty(-1)" class="px-3.5 py-1.5 text-stone-600 hover:text-stone-900 font-bold hover:bg-stone-200 transition-colors">-</button>
+                  <input 
+                    type="number" 
+                    id="modalQtyInput" 
+                    value="1" 
+                    min="1"
+                    class="w-16 text-center font-bold text-xs sm:text-sm bg-transparent focus:outline-none"
+                    oninput="onModalInputQty(this.value)"
+                  >
+                  <button onclick="changeModalQty(1)" class="px-3.5 py-1.5 text-stone-600 hover:text-stone-900 font-bold hover:bg-stone-200 transition-colors">+</button>
+                </div>
+
+                <div id="modalQuickBatchPills" class="flex items-center gap-1.5 flex-wrap"></div>
+              </div>
             </div>
 
-            <!-- Dica Refinada: Informa a Quantidade Mínima para Menor Valor -->
-            <div id="modalEfficiencyNotice" class="text-[11px] p-2.5 rounded-lg border leading-relaxed"></div>
           </div>
 
-          <!-- Totalizador -->
+          <!-- Campos Diretos de Valor Unitário e Valor Total -->
           <div class="pt-3 border-t border-stone-200 flex items-center justify-between gap-4">
-            <div>
-              <span class="text-[10px] uppercase tracking-wider text-stone-400 block font-semibold">Valor Total</span>
-              <div class="flex items-baseline gap-1.5">
-                <span id="modalCalcTotal" class="text-xl sm:text-2xl font-bold font-serif text-brand-blue">R$ 0,00</span>
-                <span id="modalCalcPerUnit" class="text-xs text-stone-500 font-medium">(R$ 0,00 / un)</span>
+            <div class="space-y-0.5">
+              <div class="flex items-baseline gap-2">
+                <span class="text-[11px] uppercase tracking-wider text-stone-500 font-medium">Valor Unitário:</span>
+                <span id="modalCalcPerUnit" class="text-sm font-bold text-stone-800">R$ 0,00</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-[11px] uppercase tracking-wider text-stone-500 font-medium">Valor Total:</span>
+                <span id="modalCalcTotal" class="text-2xl font-bold font-serif text-brand-blue">R$ 0,00</span>
               </div>
             </div>
 
@@ -298,6 +332,72 @@
       </div>
 
     </div>
+  </div>
+
+  <!-- Modal Lightbox (Visualizador em Tela Cheia com Zoom) -->
+  <div id="lightboxModal" class="fixed inset-0 z-60 hidden bg-stone-950/90 backdrop-blur-md flex flex-col justify-between p-4 select-none">
+    
+    <!-- Topo Lightbox -->
+    <div class="flex items-center justify-between text-white max-w-6xl w-full mx-auto pb-2">
+      <div class="text-xs font-medium tracking-wide">
+        <span id="lbProductName" class="font-serif text-base text-stone-100 font-bold block">Produto</span>
+        <span id="lbCounter" class="text-stone-400 text-[11px]">Foto 1 de 1</span>
+      </div>
+
+      <!-- Controles de Zoom & Fechar -->
+      <div class="flex items-center gap-2">
+        <button onclick="adjustZoom(-0.25)" class="p-2 rounded bg-stone-800/80 hover:bg-stone-700 text-stone-200 hover:text-white transition-colors" title="Diminuir Zoom">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
+          </svg>
+        </button>
+        <button onclick="resetZoom()" class="px-2.5 py-1.5 rounded bg-stone-800/80 hover:bg-stone-700 text-stone-200 hover:text-white text-xs font-semibold transition-colors" title="Resetar Tamanho">
+          100%
+        </button>
+        <button onclick="adjustZoom(0.25)" class="p-2 rounded bg-stone-800/80 hover:bg-stone-700 text-stone-200 hover:text-white transition-colors" title="Aumentar Zoom">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+        </button>
+        <button onclick="closeLightbox()" class="ml-3 p-2 rounded-full bg-stone-800 hover:bg-rose-600 text-stone-200 hover:text-white transition-colors" title="Fechar (Esc)">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Área da Imagem Inteira com Zoom -->
+    <div class="flex-1 flex items-center justify-center relative overflow-hidden my-2">
+      
+      <!-- Seta Anterior -->
+      <button onclick="prevLightboxPhoto()" class="absolute left-2 z-10 p-3 rounded-full bg-stone-900/60 hover:bg-stone-900 text-white transition-all">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+
+      <!-- Imagem Ampliada -->
+      <div class="w-full h-full flex items-center justify-center overflow-auto custom-scroll" onclick="toggleQuickZoom()">
+        <img 
+          id="lbMainImg" 
+          src="" 
+          alt="Visualização Completa" 
+          class="zoom-canvas max-h-[82vh] max-w-[88vw] object-contain cursor-zoom-in"
+        >
+      </div>
+
+      <!-- Seta Próxima -->
+      <button onclick="nextLightboxPhoto()" class="absolute right-2 z-10 p-3 rounded-full bg-stone-900/60 hover:bg-stone-900 text-white transition-all">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- Rodapé Lightbox: Miniaturas -->
+    <div id="lbThumbsContainer" class="flex items-center justify-center gap-2 overflow-x-auto py-2"></div>
   </div>
 
   <!-- Drawer do Carrinho -->
@@ -1223,6 +1323,9 @@
     let cart = [];
     let modalItem = null;
     let modalQty = 1;
+    let currentPhotoIdx = 0;
+    let lockMultiples = true;
+    let currentZoomLevel = 1;
 
     document.addEventListener('DOMContentLoaded', () => {
       renderSections();
@@ -1236,9 +1339,19 @@
           filterMenu.classList.add('hidden');
         }
       });
+
+      // Teclado no Lightbox
+      document.addEventListener('keydown', (e) => {
+        const lb = document.getElementById('lightboxModal');
+        if (!lb.classList.contains('hidden')) {
+          if (e.key === 'Escape') closeLightbox();
+          if (e.key === 'ArrowLeft') prevLightboxPhoto();
+          if (e.key === 'ArrowRight') nextLightboxPhoto();
+        }
+      });
     });
 
-    // 4. RENDERIZAÇÃO
+    // 4. RENDERIZAÇÃO DO CATÁLOGO
     function renderSections() {
       const container = document.getElementById('catalogSectionsContainer');
       const emptyState = document.getElementById('emptyResults');
@@ -1339,12 +1452,14 @@
       }).join('');
     }
 
-    // 5. MODAL DO PRODUTO (GALERIA MERCADO LIVRE)
+    // 5. MODAL DO PRODUTO (GALERIA MERCADO LIVRE & SELEÇÃO DE MÚLTIPLOS)
     function openProductModal(id) {
       const prod = catalogData.find(p => p.id === id);
       if (!prod) return;
       modalItem = prod;
-      modalQty = prod.pedidoMinimo;
+      currentPhotoIdx = 0;
+      lockMultiples = true;
+      modalQty = prod.loteOtimo;
 
       document.getElementById('modalCategoryBadge').textContent = prod.categoria;
       document.getElementById('modalProductName').textContent = prod.nome;
@@ -1354,30 +1469,61 @@
       document.getElementById('modalSpecPapel').textContent = prod.papel;
       document.getElementById('modalSpecFormato').textContent = prod.formato;
       document.getElementById('modalSpecInclusos').textContent = prod.inclusos;
-      document.getElementById('modalSpecMinOrder').textContent = `${prod.pedidoMinimo} un (Lote: múltiplos de ${prod.loteOtimo} un)`;
+      document.getElementById('modalSpecMinOrder').textContent = `Múltiplos de ${prod.loteOtimo} un (${formatBRL(prod.menorPreco)}/un)`;
       document.getElementById('modalMinNotice').textContent = prod.pedidoMinimo;
 
+      document.getElementById('lockMultiplesCheckbox').checked = true;
+      document.getElementById('lockMultiplesDesc').textContent = `Múltiplos de ${prod.loteOtimo} un (${formatBRL(prod.menorPreco)}/un)`;
+
       setupMLGallery(prod);
+      updateBatchPills();
 
       const input = document.getElementById('modalQtyInput');
       input.value = modalQty;
       input.min = prod.pedidoMinimo;
 
-      const step = prod.loteOtimo;
-      const pills = [prod.pedidoMinimo, step * 2, step * 5, step * 10]
-        .filter((v, i, self) => v >= prod.pedidoMinimo && self.indexOf(v) === i);
-
-      document.getElementById('modalQuickBatchPills').innerHTML = pills.map(val => `
-        <button 
-          onclick="setModalQtyDirect(${val})" 
-          class="px-2 py-1 text-[11px] font-semibold border border-stone-200 hover:border-brand-blue rounded bg-stone-50 hover:bg-white text-stone-700 transition-colors"
-        >
-          ${val} un
-        </button>
-      `).join('');
-
       refreshModalCalculation();
       document.getElementById('productConfigModal').classList.remove('hidden');
+    }
+
+    function toggleLockMultiples(checked) {
+      lockMultiples = checked;
+      if (lockMultiples && modalItem) {
+        modalQty = Math.max(modalItem.loteOtimo, Math.ceil(modalQty / modalItem.loteOtimo) * modalItem.loteOtimo);
+      }
+      document.getElementById('modalQtyInput').value = modalQty;
+      updateBatchPills();
+      refreshModalCalculation();
+    }
+
+    function updateBatchPills() {
+      if (!modalItem) return;
+      const step = modalItem.loteOtimo;
+      const pillsContainer = document.getElementById('modalQuickBatchPills');
+
+      if (lockMultiples) {
+        const multiples = [step, step * 2, step * 4, step * 10];
+        pillsContainer.innerHTML = multiples.map(val => `
+          <button 
+            type="button"
+            onclick="setModalQtyDirect(${val})" 
+            class="px-2.5 py-1 text-[11px] font-semibold border rounded transition-colors ${modalQty === val ? 'bg-brand-blue text-white border-brand-blue' : 'bg-stone-50 hover:bg-white text-stone-700 border-stone-200 hover:border-brand-blue'}"
+          >
+            ${val} un (${formatBRL(modalItem.menorPreco)}/un)
+          </button>
+        `).join('');
+      } else {
+        const singles = [modalItem.pedidoMinimo, 5, 10, 20, 50].filter(v => v >= modalItem.pedidoMinimo);
+        pillsContainer.innerHTML = singles.map(val => `
+          <button 
+            type="button"
+            onclick="setModalQtyDirect(${val})" 
+            class="px-2.5 py-1 text-[11px] font-semibold border rounded transition-colors ${modalQty === val ? 'bg-brand-blue text-white border-brand-blue' : 'bg-stone-50 hover:bg-white text-stone-700 border-stone-200 hover:border-brand-blue'}"
+          >
+            ${val} un
+          </button>
+        `).join('');
+      }
     }
 
     function setupMLGallery(product) {
@@ -1400,6 +1546,7 @@
 
     function selectMLPhoto(index) {
       if (!modalItem) return;
+      currentPhotoIdx = index;
       const mainPhoto = document.getElementById('mlMainPhoto');
       const counter = document.getElementById('mlPhotoCounter');
 
@@ -1424,15 +1571,24 @@
       if (!modalItem) return;
       modalQty = Math.max(modalItem.pedidoMinimo, val);
       document.getElementById('modalQtyInput').value = modalQty;
+      updateBatchPills();
       refreshModalCalculation();
     }
 
-    function changeModalQty(delta) {
+    function changeModalQty(direction) {
       if (!modalItem) return;
-      let next = modalQty + delta;
-      if (next < modalItem.pedidoMinimo) next = modalItem.pedidoMinimo;
+      const step = lockMultiples ? modalItem.loteOtimo : 1;
+      let next = modalQty + (direction * step);
+
+      if (lockMultiples) {
+        if (next < modalItem.loteOtimo) next = modalItem.loteOtimo;
+      } else {
+        if (next < modalItem.pedidoMinimo) next = modalItem.pedidoMinimo;
+      }
+
       modalQty = next;
       document.getElementById('modalQtyInput').value = modalQty;
+      updateBatchPills();
       refreshModalCalculation();
     }
 
@@ -1440,45 +1596,111 @@
       if (!modalItem) return;
       let parsed = parseInt(val) || modalItem.pedidoMinimo;
       if (parsed < 1) parsed = 1;
+
+      if (lockMultiples) {
+        parsed = Math.ceil(parsed / modalItem.loteOtimo) * modalItem.loteOtimo;
+      }
+
       modalQty = parsed;
+      updateBatchPills();
       refreshModalCalculation();
     }
 
-    // 6. CÁLCULO & INDICAÇÃO DA MELHOR QUANTIDADE MÍNIMA
+    // 6. CÁLCULO DIRETO COM VALOR TOTAL E UNITÁRIO (SEM O CAMPO DE DICA)
     function refreshModalCalculation() {
       if (!modalItem) return;
       const calc = calcPrice(modalItem, modalQty);
 
+      document.getElementById('modalCalcPerUnit').textContent = `${formatBRL(calc.unitCost)} / un`;
       document.getElementById('modalCalcTotal').textContent = formatBRL(calc.totalCost);
-      document.getElementById('modalCalcPerUnit').textContent = `(${formatBRL(calc.unitCost)} / un)`;
-
-      const notice = document.getElementById('modalEfficiencyNotice');
-
-      if (calc.isOptimal) {
-        notice.className = "text-[11px] p-2.5 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 leading-normal";
-        notice.innerHTML = `
-          <div>
-            <b>Melhor valor unitário garantido:</b> Quantidade mínima para pagar <b>${formatBRL(modalItem.menorPreco)} / un</b> é a partir de <b>${modalItem.loteOtimo} unidades</b> (em múltiplos de ${modalItem.loteOtimo}).
-          </div>
-        `;
-      } else {
-        notice.className = "text-[11px] p-2.5 rounded-lg bg-amber-50 text-amber-950 border border-amber-200 leading-normal space-y-1.5";
-        notice.innerHTML = `
-          <div>
-            <b>Quantidade recomendada para menor valor:</b> Para pagar o menor valor de <b>${formatBRL(modalItem.menorPreco)} / un</b>, a quantidade mínima ideal para esta faixa é de <b>${calc.recommendedQty} unidades</b>.
-          </div>
-          <button 
-            type="button" 
-            onclick="setModalQtyDirect(${calc.recommendedQty})" 
-            class="inline-block px-2.5 py-1 bg-amber-200 hover:bg-amber-300 text-amber-950 font-bold rounded text-[10px] transition-colors"
-          >
-            Ajustar para quantidade mínima ideal (${calc.recommendedQty} un)
-          </button>
-        `;
-      }
     }
 
-    // 7. CARRINHO & WHATSAPP
+    // 7. LIGHTBOX (VISUALIZADOR EM TELA CHEIA COM ZOOM)
+    function openLightbox() {
+      if (!modalItem) return;
+      const lb = document.getElementById('lightboxModal');
+      document.getElementById('lbProductName').textContent = modalItem.nome;
+
+      setupLightboxThumbs();
+      showLightboxPhoto(currentPhotoIdx);
+      resetZoom();
+      lb.classList.remove('hidden');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.add('hidden');
+      resetZoom();
+    }
+
+    function setupLightboxThumbs() {
+      const container = document.getElementById('lbThumbsContainer');
+      const photos = modalItem.fotos;
+
+      container.innerHTML = photos.map((p, i) => `
+        <button 
+          onclick="showLightboxPhoto(${i})"
+          class="lb-thumb w-12 h-12 rounded border-2 overflow-hidden shrink-0 transition-all ${i === currentPhotoIdx ? 'border-brand-orange scale-105' : 'border-stone-700 opacity-60 hover:opacity-100'}"
+        >
+          <img src="${p}" class="w-full h-full object-cover">
+        </button>
+      `).join('');
+    }
+
+    function showLightboxPhoto(index) {
+      if (!modalItem || !modalItem.fotos[index]) return;
+      currentPhotoIdx = index;
+      selectMLPhoto(index);
+
+      const img = document.getElementById('lbMainImg');
+      img.src = modalItem.fotos[index];
+      document.getElementById('lbCounter').textContent = `Foto ${index + 1} de ${modalItem.fotos.length}`;
+
+      document.querySelectorAll('.lb-thumb').forEach((t, i) => {
+        if (i === index) {
+          t.className = "lb-thumb w-12 h-12 rounded border-2 border-brand-orange scale-105 overflow-hidden shrink-0 transition-all";
+        } else {
+          t.className = "lb-thumb w-12 h-12 rounded border-2 border-stone-700 opacity-60 hover:opacity-100 overflow-hidden shrink-0 transition-all";
+        }
+      });
+      resetZoom();
+    }
+
+    function prevLightboxPhoto() {
+      if (!modalItem) return;
+      let next = currentPhotoIdx - 1;
+      if (next < 0) next = modalItem.fotos.length - 1;
+      showLightboxPhoto(next);
+    }
+
+    function nextLightboxPhoto() {
+      if (!modalItem) return;
+      let next = currentPhotoIdx + 1;
+      if (next >= modalItem.fotos.length) next = 0;
+      showLightboxPhoto(next);
+    }
+
+    function adjustZoom(delta) {
+      currentZoomLevel = Math.max(0.75, Math.min(3, currentZoomLevel + delta));
+      applyZoom();
+    }
+
+    function resetZoom() {
+      currentZoomLevel = 1;
+      applyZoom();
+    }
+
+    function toggleQuickZoom() {
+      currentZoomLevel = (currentZoomLevel === 1) ? 2 : 1;
+      applyZoom();
+    }
+
+    function applyZoom() {
+      const img = document.getElementById('lbMainImg');
+      img.style.transform = `scale(${currentZoomLevel})`;
+      img.className = `zoom-canvas max-h-[82vh] max-w-[88vw] object-contain ${currentZoomLevel > 1 ? 'cursor-zoom-out' : 'cursor-zoom-in'}`;
+    }
+
+    // 8. CARRINHO & WHATSAPP
     function confirmAddToCartFromModal() {
       if (!modalItem) return;
       addToCart(modalItem.id, modalQty);
