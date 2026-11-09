@@ -179,12 +179,24 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
 .item-quantity-row > output { color: var(--blue); font-size: 13px; font-weight: 800; }
 .item-price { display: flex; align-items: end; justify-content: space-between; gap: 8px; }
 .item-price strong { color: var(--blue); font-size: 20px; }
+.item-modal-content { min-height: 0; overscroll-behavior: contain; }
+.item-modal-footer {
+  flex: none; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 14px; align-items: center; padding: 12px 24px; border-top: 1px solid var(--line); background: white;
+}
 #productConfigModal > div { border-radius: 16px; }
 #productConfigModal .product-photo-frame {
   display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center;
   height: clamp(260px, 45vh, 410px); min-height: 0; padding: 18px;
-  background: var(--photo-mat); border-color: var(--photo-edge);
+  background: var(--photo-mat); border-color: var(--photo-edge); touch-action: pan-y;
 }
+.gallery-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); display: grid; place-items: center;
+  width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--photo-edge);
+  background: #ffffffed; color: var(--blue); font: 700 24px/1 var(--sans);
+}
+.gallery-prev { left: 7px; }
+.gallery-next { right: 7px; }
 #productConfigModal .ml-thumb, #productConfigModal .art-option img { background: var(--photo-mat); padding: 3px; }
 #productConfigModal .thumb-active { border-color: var(--blue) !important; box-shadow: 0 0 0 1px var(--blue); }
 #productConfigModal .art-option[aria-pressed=true] { border-color: var(--blue); outline-color: var(--blue); }
@@ -204,7 +216,8 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
   .hero .site-button { margin-top: 14px; }
   .hero-figure img { height: clamp(158px, 50vw, 265px); }
   .catalog { padding-top: 25px; }
-  .category-tabs { flex-wrap: nowrap; overflow-x: auto; padding: 3px 3px 13px; }
+  .category-tabs { flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x proximity; padding: 3px 3px 13px; }
+  .category-tabs button { min-height: 42px; scroll-snap-align: start; }
   .catalog-tools { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 8px; padding: 10px; }
   .search-control { grid-column: 1 / -1; }
   .catalog-tools .text-button { width: max-content; padding: 6px 2px 2px; }
@@ -212,7 +225,18 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
   .tile-body { padding: 9px; gap: 6px; }
   .tile-body h4 { font-size: 20px; }
   .tile-action { align-items: start; flex-direction: column; }
-  .tile-action .site-button { width: 100%; min-height: 38px; padding: 7px; font-size: 11px; }
+  .tile-action .site-button { width: 100%; min-height: 44px; padding: 7px; font-size: 12px; }
+  #productConfigModal { padding: 0; }
+  #productConfigModal > div {
+    height: 100vh; height: 100dvh; max-height: none; margin: 0; border-radius: 0; border: 0;
+  }
+  #productConfigModal .item-modal-content { padding: 12px; gap: 16px; }
+  #productConfigModal .product-photo-frame { height: clamp(190px, 35dvh, 310px); padding: 14px; }
+  .item-modal-footer { gap: 8px; padding: 9px 12px max(10px, env(safe-area-inset-bottom)); }
+  .item-modal-footer .item-price { flex-direction: column; align-items: start; gap: 0; }
+  .item-modal-footer .item-price strong { font-size: 17px; }
+  .item-modal-footer .site-button { padding-inline: 7px; min-height: 44px; }
+  .item-quantity .quantity-control button { min-width: 44px; min-height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
@@ -292,7 +316,7 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
         </button>
       </div>
 
-      <div class="p-4 sm:p-6 overflow-y-auto flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div class="item-modal-content p-4 sm:p-6 overflow-y-auto flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         <!-- Galeria Mercado Livre com Acesso ao Zoom da Imagem Inteira -->
         <div class="lg:col-span-6 min-w-0 flex flex-col-reverse sm:flex-row gap-3">
@@ -318,7 +342,9 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
               <span>Ampliar imagem</span>
             </button>
 
-            <span id="mlPhotoCounter" class="absolute bottom-2.5 right-2.5 bg-stone-900/75 text-white text-[10px] font-medium px-2 py-0.5 rounded backdrop-blur-xs">
+            <button type="button" data-gallery-step class="gallery-arrow gallery-prev" aria-label="Foto anterior" onclick="event.stopPropagation(); stepGalleryPhoto(-1)" hidden>‹</button>
+            <button type="button" data-gallery-step class="gallery-arrow gallery-next" aria-label="Próxima foto" onclick="event.stopPropagation(); stepGalleryPhoto(1)" hidden>›</button>
+            <span id="mlPhotoCounter" aria-live="polite" class="absolute bottom-2.5 right-2.5 bg-stone-900/75 text-white text-[10px] font-medium px-2 py-0.5 rounded backdrop-blur-xs">
               1 / 1
             </span>
             <span id="modalPaperTag" class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/95 text-stone-700 shadow-xs border border-stone-200">
@@ -350,15 +376,17 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
               <output id="modalUnits" aria-live="polite"></output>
             </div>
           </div>
-          <div class="item-price">
-            <div><p id="modalPriceLabel">Subtotal estimado</p><strong id="modalCalcTotal"></strong></div>
-            <p id="modalCalcPerUnit"></p>
-          </div>
-          <button type="button" class="site-button primary w-full" onclick="confirmAddToCartFromModal()">Adicionar ao carrinho</button>
         </div>
 
       </div>
 
+      <div class="item-modal-footer">
+        <div class="item-price">
+          <div><p id="modalPriceLabel">Subtotal estimado</p><strong id="modalCalcTotal"></strong></div>
+          <p id="modalCalcPerUnit"></p>
+        </div>
+        <button type="button" class="site-button primary" onclick="confirmAddToCartFromModal()">Adicionar ao carrinho</button>
+      </div>
     </div>
   </div>
 
@@ -399,7 +427,7 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
     <div class="flex-1 min-h-0 flex items-center justify-center relative overflow-hidden my-2">
       
       <!-- Seta Anterior -->
-      <button type="button" aria-label="Imagem anterior" onclick="prevLightboxPhoto()" class="absolute left-2 z-10 p-3 rounded-full bg-stone-900/60 hover:bg-stone-900 text-white transition-all">
+      <button type="button" data-lightbox-step aria-label="Imagem anterior" onclick="prevLightboxPhoto()" class="absolute left-2 z-10 p-3 rounded-full bg-stone-900/60 hover:bg-stone-900 text-white transition-all">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
@@ -412,7 +440,7 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
       </div>
 
       <!-- Seta Próxima -->
-      <button type="button" aria-label="Próxima imagem" onclick="nextLightboxPhoto()" class="absolute right-2 z-10 p-3 rounded-full bg-stone-900/60 hover:bg-stone-900 text-white transition-all">
+      <button type="button" data-lightbox-step aria-label="Próxima imagem" onclick="nextLightboxPhoto()" class="absolute right-2 z-10 p-3 rounded-full bg-stone-900/60 hover:bg-stone-900 text-white transition-all">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
@@ -420,7 +448,7 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
 
     </div>
 
-    <p class="pinch-hint">Use dois dedos para ampliar e arraste para explorar.</p>
+    <p class="pinch-hint"><span id="lbSwipeHint">Deslize para trocar de foto. </span>Use dois dedos para ampliar.</p>
     <!-- Rodapé Lightbox: Miniaturas -->
     <div id="lbThumbsContainer" class="flex items-center justify-center gap-2 overflow-x-auto py-2"></div>
   </div>
@@ -2626,6 +2654,7 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
     document.addEventListener('DOMContentLoaded', () => {
       setupCatalog();
       setupZoomViewport();
+      setupPhotoSwipe();
       loadCart();
       updateCartDisplay();
       document.addEventListener('keydown', event => {
@@ -2665,6 +2694,9 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
     function setupMLGallery(product) {
       const thumbsList = document.getElementById('mlThumbsList');
       const photos = product.fotos;
+      thumbsList.hidden = photos.length < 2;
+      for (const arrow of document.querySelectorAll('[data-gallery-step]')) arrow.hidden = photos.length < 2;
+      document.getElementById('mlPhotoCounter').hidden = photos.length < 2;
 
       thumbsList.innerHTML = photos.map((photo, i) => `
         <button 
@@ -2727,6 +2759,9 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
     function setupLightboxThumbs() {
       const container = document.getElementById('lbThumbsContainer');
       const photos = modalItem.fotos;
+      container.hidden = photos.length < 2;
+      document.getElementById('lbSwipeHint').hidden = photos.length < 2;
+      for (const arrow of document.querySelectorAll('[data-lightbox-step]')) arrow.hidden = photos.length < 2;
 
       container.innerHTML = photos.map((p, i) => `
         <button 
@@ -2867,12 +2902,50 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
       }
     }
 
+    function swipeDirection(start, event) {
+      const dx = event.clientX - start.x;
+      const dy = event.clientY - start.y;
+      return Math.abs(dx) >= 42 && Math.abs(dx) > Math.abs(dy) * 1.35 ? (dx < 0 ? 1 : -1) : 0;
+    }
+
+    function stepGalleryPhoto(direction) {
+      const count = modalItem.fotos.length;
+      selectMLPhoto((currentPhotoIdx + direction + count) % count);
+    }
+
+    function setupPhotoSwipe() {
+      const frame = document.querySelector('.product-photo-frame');
+      let start;
+      let swiped = false;
+      frame.addEventListener('pointerdown', event => {
+        if (!event.isPrimary) return;
+        swiped = false;
+        if (event.pointerType !== 'touch' || event.target.closest('button')) return;
+        start = { id: event.pointerId, x: event.clientX, y: event.clientY };
+      });
+      frame.addEventListener('pointerup', event => {
+        if (start?.id !== event.pointerId) return;
+        const direction = swipeDirection(start, event);
+        start = undefined;
+        if (!direction) return;
+        swiped = true;
+        if (modalItem.fotos.length > 1) stepGalleryPhoto(direction);
+      });
+      frame.addEventListener('pointercancel', () => { start = undefined; });
+      frame.addEventListener('click', event => {
+        if (!swiped) return;
+        swiped = false;
+        event.stopPropagation();
+      }, true);
+    }
+
     function setupZoomViewport() {
       const viewport = document.getElementById('lbViewport');
       const image = document.getElementById('lbMainImg');
       const pointers = new Map();
       let moved = false;
       let tapOnImage = false;
+      let canSwipe = false;
       const point = event => ({ x: event.clientX, y: event.clientY });
       const midpoint = (first, second) => ({ x: (first.x + second.x) / 2, y: (first.y + second.y) / 2 });
       const distance = (first, second) => Math.hypot(first.x - second.x, first.y - second.y);
@@ -2885,7 +2958,11 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
         if (!pointers.size) {
           moved = false;
           tapOnImage = event.target === image;
-        } else moved = true;
+          canSwipe = event.pointerType === 'touch' && currentZoomLevel === 1;
+        } else {
+          moved = true;
+          canSwipe = false;
+        }
         const position = point(event);
         pointers.set(event.pointerId, { ...position, start: position });
         viewport.setPointerCapture(event.pointerId);
@@ -2919,8 +2996,15 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
       });
 
       viewport.addEventListener('pointerup', event => {
-        if (!pointers.delete(event.pointerId)) return;
-        if (!pointers.size && !moved && tapOnImage) toggleQuickZoom();
+        const previous = pointers.get(event.pointerId);
+        if (!previous) return;
+        pointers.delete(event.pointerId);
+        if (pointers.size) return;
+        const direction = canSwipe ? swipeDirection(previous.start, event) : 0;
+        if (direction && modalItem.fotos.length > 1) {
+          if (direction > 0) nextLightboxPhoto();
+          else prevLightboxPhoto();
+        } else if (!direction && !moved && tapOnImage) toggleQuickZoom();
       });
       for (const eventName of ['pointercancel', 'lostpointercapture']) {
         viewport.addEventListener(eventName, event => pointers.delete(event.pointerId));
