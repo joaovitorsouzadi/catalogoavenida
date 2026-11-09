@@ -188,8 +188,10 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
 #productConfigModal .ml-thumb, #productConfigModal .art-option img { background: var(--photo-mat); padding: 3px; }
 #productConfigModal .thumb-active { border-color: var(--blue) !important; box-shadow: 0 0 0 1px var(--blue); }
 #productConfigModal .art-option[aria-pressed=true] { border-color: var(--blue); outline-color: var(--blue); }
-#lbViewport { touch-action: pan-x pan-y; background: #17284a; border-radius: 8px; }
+#lbViewport { touch-action: none; scrollbar-width: none; background: #17284a; border-radius: 8px; }
 #lbMainImg { background: white; outline: 1px solid var(--photo-edge); outline-offset: -1px; }
+.pinch-hint { display: none; margin: 2px 0; color: #e4eafa; text-align: center; font-size: 11px; }
+@media (pointer: coarse) { .pinch-hint { display: block; } }
 @media (max-width: 900px) { .product-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
 @media (max-width: 680px) {
   html { scroll-padding-top: 4.75rem; }
@@ -418,6 +420,7 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
 
     </div>
 
+    <p class="pinch-hint">Use dois dedos para ampliar e arraste para explorar.</p>
     <!-- Rodapé Lightbox: Miniaturas -->
     <div id="lbThumbsContainer" class="flex items-center justify-center gap-2 overflow-x-auto py-2"></div>
   </div>
@@ -2784,24 +2787,6 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
       applyZoom();
     }
 
-    function applyZoom() {
-      const viewport = document.getElementById('lbViewport');
-      const canvas = document.getElementById('lbCanvas');
-      const img = document.getElementById('lbMainImg');
-      document.getElementById('lbZoomReset').textContent = Math.round(currentZoomLevel * 100) + '%';
-      if (!img.naturalWidth || !viewport.clientWidth || !viewport.clientHeight) return;
-      const fit = Math.min(viewport.clientWidth / img.naturalWidth, viewport.clientHeight / img.naturalHeight);
-      const width = Math.round(img.naturalWidth * fit * currentZoomLevel);
-      const height = Math.round(img.naturalHeight * fit * currentZoomLevel);
-      canvas.style.width = width + 'px';
-      canvas.style.height = height + 'px';
-      img.style.width = width + 'px';
-      img.style.height = height + 'px';
-      img.style.cursor = currentZoomLevel > 1 ? 'grab' : 'zoom-in';
-      viewport.scrollLeft = Math.max(0, (width - viewport.clientWidth) / 2);
-      viewport.scrollTop = Math.max(0, (height - viewport.clientHeight) / 2);
-    }
-
     function showProductPreview(product, isCollection) {
       modalItem = product;
       document.getElementById('modalCategoryBadge').textContent = product.categoria;
@@ -2860,33 +2845,86 @@ body.site { background: var(--paper); color: var(--ink); font-family: var(--sans
       choose(product.variantes[0], 0);
     }
 
+    function applyZoom(anchor) {
+      const viewport = document.getElementById('lbViewport');
+      const canvas = document.getElementById('lbCanvas');
+      const image = document.getElementById('lbMainImg');
+      document.getElementById('lbZoomReset').textContent = Math.round(currentZoomLevel * 100) + '%';
+      if (!image.naturalWidth || !viewport.clientWidth || !viewport.clientHeight) return;
+      const fit = Math.min(viewport.clientWidth / image.naturalWidth, viewport.clientHeight / image.naturalHeight);
+      const width = Math.round(image.naturalWidth * fit * currentZoomLevel);
+      const height = Math.round(image.naturalHeight * fit * currentZoomLevel);
+      canvas.style.width = image.style.width = width + 'px';
+      canvas.style.height = image.style.height = height + 'px';
+      image.style.cursor = currentZoomLevel > 1 ? 'grab' : 'zoom-in';
+      if (anchor) {
+        const bounds = image.getBoundingClientRect();
+        viewport.scrollLeft += bounds.left + anchor.imageX * bounds.width - anchor.x;
+        viewport.scrollTop += bounds.top + anchor.imageY * bounds.height - anchor.y;
+      } else {
+        viewport.scrollLeft = Math.max(0, (width - viewport.clientWidth) / 2);
+        viewport.scrollTop = Math.max(0, (height - viewport.clientHeight) / 2);
+      }
+    }
+
     function setupZoomViewport() {
       const viewport = document.getElementById('lbViewport');
       const image = document.getElementById('lbMainImg');
-      let start;
+      const pointers = new Map();
       let moved = false;
-      image.addEventListener('load', applyZoom);
-      window.addEventListener('resize', applyZoom);
+      let tapOnImage = false;
+      const point = event => ({ x: event.clientX, y: event.clientY });
+      const midpoint = (first, second) => ({ x: (first.x + second.x) / 2, y: (first.y + second.y) / 2 });
+      const distance = (first, second) => Math.hypot(first.x - second.x, first.y - second.y);
+
+      image.addEventListener('load', () => applyZoom());
+      window.addEventListener('resize', () => applyZoom());
       viewport.addEventListener('pointerdown', event => {
-        if (event.pointerType !== 'mouse' || event.button !== 0) return;
-        moved = false;
-        if (currentZoomLevel <= 1) return;
-        start = { x: event.clientX, y: event.clientY, left: viewport.scrollLeft, top: viewport.scrollTop };
+        if (event.button !== 0 || pointers.size >= 2) return;
+        if (pointers.size && event.pointerType !== 'touch') return;
+        if (!pointers.size) {
+          moved = false;
+          tapOnImage = event.target === image;
+        } else moved = true;
+        const position = point(event);
+        pointers.set(event.pointerId, { ...position, start: position });
         viewport.setPointerCapture(event.pointerId);
       });
+
       viewport.addEventListener('pointermove', event => {
-        if (!start) return;
-        const dx = event.clientX - start.x;
-        const dy = event.clientY - start.y;
-        if (Math.abs(dx) + Math.abs(dy) > 3) moved = true;
-        viewport.scrollLeft = start.left - dx;
-        viewport.scrollTop = start.top - dy;
+        const previous = pointers.get(event.pointerId);
+        if (!previous) return;
+        const next = point(event);
+        pointers.set(event.pointerId, { ...next, start: previous.start });
+        if (pointers.size === 2) {
+          const other = [...pointers].find(([id]) => id !== event.pointerId)[1];
+          const bounds = image.getBoundingClientRect();
+          const previousDistance = distance(previous, other);
+          if (previousDistance < 1 || !image.complete || !image.naturalWidth || !bounds.width || !bounds.height) return;
+          const before = midpoint(previous, other);
+          const after = midpoint(next, other);
+          currentZoomLevel = Math.max(1, Math.min(4, currentZoomLevel * distance(next, other) / previousDistance));
+          applyZoom({
+            ...after,
+            imageX: (before.x - bounds.left) / bounds.width,
+            imageY: (before.y - bounds.top) / bounds.height
+          });
+        } else {
+          if (distance(next, previous.start) > 5) moved = true;
+          if (moved && currentZoomLevel > 1) {
+            viewport.scrollLeft += previous.x - next.x;
+            viewport.scrollTop += previous.y - next.y;
+          }
+        }
       });
-      viewport.addEventListener('lostpointercapture', () => { start = undefined; });
-      viewport.addEventListener('click', event => {
-        if (!moved && (event.target === image || event.target === viewport)) toggleQuickZoom();
-        moved = false;
+
+      viewport.addEventListener('pointerup', event => {
+        if (!pointers.delete(event.pointerId)) return;
+        if (!pointers.size && !moved && tapOnImage) toggleQuickZoom();
       });
+      for (const eventName of ['pointercancel', 'lostpointercapture']) {
+        viewport.addEventListener(eventName, event => pointers.delete(event.pointerId));
+      }
     }
 
 
